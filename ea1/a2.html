@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Deep Learning</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Deep Learning</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="#">EA1</a>
+                        <a class="nav-link disabled" href="#">EA2</a>
+                        <a class="nav-link disabled" href="#">EA3</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="m-3 d-flex flex-column gap-2">
+        <h1 class="display-5">Einsendeaufgabe 1</h1>
+        <p class="lead">
+            Bilderkennung (Klassifikation) mit dem ml5-Framework
+        </p>
+        <nav class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link " href="./a1.html">A1 - Beispiele</a>
+            </li>
+            <li class="nav-item"> 
+                <a class="nav-link active" href="./a2.html">A2 - Eigener Input</a>
+            </li>
+            <li class="nav-item"> 
+                <a class="nav-link " href="./disc-doc.html">Diskussion & Dokumentation</a>
+            </li>
+        </nav>
+
+         
+        <section class="mx-3">
+            <h2 class="fw-light">A2 - Eigener Input</h2>
+            <p>Laden Sie ihr eigenes Bild zur Klassifikation hoch.</p>
+
+            <article class="d-flex flex-row justify-content-start gap-2 p-5 bg-body-tertiary rounded-3 ">
+                <input class="form-control" type="file" id="formFile">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </article>
+
+            <article class="row">
+                <div class="col">
+                    <figure class="figure">
+                        <img src="../images/placeholder.jpg" class="figure-img img-fluid rounded" alt="...">
+                        <figcaption class="figure-caption text-end">Ihr hochgeladenes Bild</figcaption>
+                    </figure>
+                </div>
+                <div class="col">Klassifizierung / Ergebnis</div>
+            </div>
+        </section>
+
+        <section class="h-100 p-5 text-bg-dark rounded-3">
+            <h2>Diskussion</h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa sunt quas porro, error similique
+                consequatur ad. Modi, ea. Ea, inventore sunt? Blanditiis harum quod voluptatem iusto eum explicabo
+                veniam totam!</p>
+
+        </section>
+
+        <section class="h-100 p-5 text-bg-dark rounded-3">
+            <h2>Dokumentation</h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa sunt quas porro, error similique
+                consequatur ad. Modi, ea. Ea, inventore sunt? Blanditiis harum quod voluptatem iusto eum explicabo
+                veniam totam!</p>
+
+        </section>
+    </main>
+    <footer class="py-3 my-4 border-top">
+        <span class="mb-3 p-3 text-body-secondary">Julia Heinzelmann</span>
+    </footer>
+    <script src="../charting.js"></script>
+
+</body>
+
+</html>
