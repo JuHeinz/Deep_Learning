@@ -1,26 +1,58 @@
 let classifier;
-const canvas1 = document.getElementById('chart1');
 
+const imageFolder = "./image-input/";
+const imageFiles = ["input-0.jpg", "input-1.jpg", "input-2.jpg"]
 
 window.addEventListener("DOMContentLoaded", (event) => {
   classifier = ml5.imageClassifier("MobileNet");
-  console.log("setup")
-  classifier.classify(img, gotResult)
+
+  imageFiles.forEach((file, index) => {
+    let img = drawImage(file, index);
+
+    // Get canvas for image
+    let canvasID = `chart-${index}`;
+    let canvas = document.getElementById(canvasID);
+
+    //get classification, then chart result
+    classify(img).then((classification) => {
+      chart(classification, canvas);
+    }).catch((error) => {
+      console.error("Error during classification:", error)
+    })
+
+
+  });
 });
 
-let img = new Image(100, 100);
-img.src = "../images/placeholder.jpg"
 
+/* Draw the images to the DOM */
+function drawImage(file, index) {
+  let img = new Image(500, 500);
+  img.src = imageFolder + file;
+  img.className = "img-fluid rounded-start";
 
-function gotResult(results) {
-  console.log(results);
-  chart(results)
+  //add image to DOM
+  let holderID = `input-holder-${index}`;
+  let holder = document.getElementById(holderID);
+  holder.appendChild(img)
+  return img;
 }
 
-function chart(results) {
 
+/* Classify the image, returning the result */
+function classify(img) {
+  let result = classifier.classify(img, gotResult);
+  return result;
+}
 
-  new Chart(canvas1, {
+//TODO: figure out callbacks
+function gotResult(result) {
+  return result;
+}
+
+//Chart the result
+function chart(results, canvas) {
+  new Chart(canvas, {
 
     type: 'bar',
     data: {
@@ -32,6 +64,7 @@ function chart(results) {
       }]
     },
     options: {
+      indexAxis: 'y',
       scales: {
         y: {
           beginAtZero: true
