@@ -1,7 +1,8 @@
 let classifier;
 
 const imageFolder = "./image-input/";
-const imageFiles = ["input-0.jpg", "input-1.jpg", "input-2.jpg", "input-3.jpg", "input-4.jpg", "input-5.jpg"]
+const correctImages = ["input-0.jpg", "input-1.jpg", "input-2.jpg", ]
+const incorrectImages = ["input-3.jpg", "input-4.jpg", "input-5.jpg"]
 
 const btn = document.getElementById("upload-btn");
   btn.addEventListener("click", (e) => {
@@ -12,37 +13,30 @@ const upload = document.getElementById("upload-input");
 window.addEventListener("DOMContentLoaded", (event) => {
   classifier = ml5.imageClassifier("MobileNet");
 
-  imageFiles.forEach((file, index) => {
-    let img = drawImage(imageFolder + file, index);
-
-    // Get canvas for image
-    let canvasID = `chart-${index}`;
-    let canvas = document.getElementById(canvasID);
-
-    //get classification, then chart result
-    classify(img).then((classification) => {
-      chart(classification, canvas);
-    }).catch((error) => {
-      console.error("Error during classification:", error)
-    })
-
-
+  correctImages.forEach((file) => {
+   fromLocal(file, "right");
   });
+
+  incorrectImages.forEach((file) => {
+    fromLocal(file, "wrong");
+   });
 });
 
+function fromLocal(file, isCorrect){
+  const card = new Card(isCorrect)
+  card.appendTo(document.querySelector('#part-1'))
+  const img = card.addImage(imageFolder + file)
 
-/* Draw the images to the DOM */
-function drawImage(file, index) {
-  let img = new Image(500, 500);
-  img.src = file;
-  img.className = "img-fluid rounded-start";
+  //get classification, then chart result
+  classify(img).then((classification) => {
+    let canvas = document.createElement("canvas");
+    chart(classification, canvas);
+    card.addCanvas(canvas);
 
-  //add image to DOM
-  let holderID = `input-holder-${index}`;
-  let holder = document.getElementById(holderID);
-  holder.innerHTML = "";
-  holder.appendChild(img)
-  return img;
+  }).catch((error) => {
+    console.error("Error during classification:", error)
+  })
+
 }
 
 
@@ -60,6 +54,7 @@ function gotResult(result) {
 
 //Chart the result
 function chart(results, canvas) {
+  
   new Chart(canvas, {
 
     type: 'bar',
@@ -83,6 +78,7 @@ function chart(results, canvas) {
 }
 
 function startUserUpload() {
+  let userOutput = document.querySelector('#user-output')
   let file = upload.files[0]; // Get the uploaded file
  
   if (!file) {
@@ -93,14 +89,18 @@ function startUserUpload() {
   let reader = new FileReader();
 
   reader.onload = function (event) {
-    let img = null;
-    let canvas = null;
-    img = drawImage(event.target.result, "user")
-    canvas = document.getElementById("chart-user");
+
+    const card = new Card()
+    userOutput.innerHTML = "";
+    card.appendTo(userOutput)
+    const img = card.addImage(event.target.result)
 
     // Classify the uploaded image
     classify(img).then((classification) => {
+      let canvas = document.createElement("canvas");
       chart(classification, canvas);
+      card.addCanvas(canvas);
+
     }).catch((error) => {
       console.error("Error during classification:", error)
     });
@@ -112,3 +112,4 @@ function startUserUpload() {
 
   reader.readAsDataURL(file); // Read the file as a data URL
 }
+

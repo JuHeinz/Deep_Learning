@@ -40,107 +40,9 @@
     </p>
 
 
-    <section class="mx-3 d-flex flex-column gap-2">
+    <section class="mx-3 d-flex flex-column gap-2" id="part-1">
       <h2 class="fw-light">A1 - Beispiele</h2>
 
-      <!-- Image 0 -->
-      <div class="card border-success" style="max-width: 80vw;">
-        <div class="row g-0">
-          <div class="col-md-4" id="input-holder-0">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title text-success">✅ Korrekte Klassifikation</h5>
-              <div class="card-text">
-                <canvas id="chart-0"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image 1 -->
-      <div class="card border-success" style="max-width: 80vw;">
-        <div class="row g-0">
-          <div class="col-md-4" id="input-holder-1">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title text-success">✅ Korrekte Klassifikation</h5>
-              <div class="card-text">
-                <canvas id="chart-1"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image 2 -->
-      <div class="card border-success" style="max-width: 80vw;">
-        <div class="row g-0">
-          <div class="col-md-4" id="input-holder-2">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title text-success">✅ Korrekte Klassifikation</h5>
-              <div class="card-text">
-                <canvas id="chart-2"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Image 3 -->
-      <div class="card border-danger" style="max-width: 80vw;">
-        <div class="row g-0">
-          <div class="col-md-4" id="input-holder-3">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title text-danger">❌ Inkorrekte Klassifikation</h5>
-              <div class="card-text">
-                <canvas id="chart-3"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Image 4 -->
-      <div class="card border-danger" style="max-width: 80vw;">
-        <div class="row g-0">
-          <div class="col-md-4" id="input-holder-4">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title text-danger">❌ Inkorrekte Klassifikation</h5>
-              <div class="card-text">
-                <canvas id="chart-4"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Image 5 -->
-      <div class="card border-danger" style="max-width: 80vw;">
-        <div class="row g-0">
-          <div class="col-md-4" id="input-holder-5">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title text-danger">❌ Inkorrekte Klassifikation</h5>
-              <div class="card-text">
-                <canvas id="chart-5"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- USER UPLOAD -->
@@ -153,21 +55,7 @@
         <button class="btn btn-primary" id="upload-btn" type="submit">Submit</button>
       </article>
 
-    
-      <div class="card border" style="max-width: 80vw;">
-        <div class="row g-0">
-          <div class="col-md-4" id="input-holder-user">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Klassifikation</h5>
-              <div class="card-text">
-                <canvas id="chart-user"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <article id="user-output"></article>
     </section>
 
     <section mx-3 d-flex flex-column gap-2>
@@ -193,6 +81,8 @@
   <footer class="py-3 my-4 border-top">
     <span class="mb-3 p-3 text-body-secondary">Julia Heinzelmann</span>
   </footer>
+  <script src="./card.js"></script>
+
   <script src="./imgclass.js"></script>
 
 </body>
