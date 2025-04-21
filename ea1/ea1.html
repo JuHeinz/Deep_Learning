@@ -38,17 +38,7 @@
     <p class="lead">
       Bilderkennung (Klassifikation) mit dem ml5-Framework
     </p>
-    <nav class="nav nav-pills">
-      <li class="nav-item">
-        <a class="nav-link active" href="./a1.html">A1 - Beispiele</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="./a2.html">A2 - Eigener Input</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="./disc-doc.html">Diskussion & Dokumentation</a>
-      </li>
-    </nav>
+
 
     <section class="mx-3 d-flex flex-column gap-2">
       <h2 class="fw-light">A1 - Beispiele</h2>
@@ -100,10 +90,106 @@
           </div>
         </div>
       </div>
+
+
+      <!-- Image 3 -->
+      <div class="card border-danger" style="max-width: 80vw;">
+        <div class="row g-0">
+          <div class="col-md-4" id="input-holder-3">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title text-danger">❌ Inkorrekte Klassifikation</h5>
+              <div class="card-text">
+                <canvas id="chart-3"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Image 4 -->
+      <div class="card border-danger" style="max-width: 80vw;">
+        <div class="row g-0">
+          <div class="col-md-4" id="input-holder-4">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title text-danger">❌ Inkorrekte Klassifikation</h5>
+              <div class="card-text">
+                <canvas id="chart-4"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Image 5 -->
+      <div class="card border-danger" style="max-width: 80vw;">
+        <div class="row g-0">
+          <div class="col-md-4" id="input-holder-5">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title text-danger">❌ Inkorrekte Klassifikation</h5>
+              <div class="card-text">
+                <canvas id="chart-5"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- USER UPLOAD -->
+    <section class="mx-3">
+      <h2 class="fw-light">A2 - Eigener Input</h2>
+      <p>Laden Sie ihr eigenes Bild zur Klassifikation hoch.</p>
+
+      <article class="d-flex flex-row justify-content-start gap-2 p-5 bg-body-tertiary rounded-3 ">
+        <input class="form-control" type="file" id="upload-input">
+        <button class="btn btn-primary" id="upload-btn" type="submit">Submit</button>
+      </article>
+
+    
+      <div class="card border" style="max-width: 80vw;">
+        <div class="row g-0">
+          <div class="col-md-4" id="input-holder-user">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Klassifikation</h5>
+              <div class="card-text">
+                <canvas id="chart-user"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section mx-3 d-flex flex-column gap-2>
+      <h2 class="fw-light">Diskussion und Dokumentation</h2>
+
+      <article class="h-100 p-5 text-bg-dark rounded-3">
+        <h2>Diskussion</h2>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa sunt quas porro, error similique
+          consequatur ad. Modi, ea. Ea, inventore sunt? Blanditiis harum quod voluptatem iusto eum explicabo
+          veniam totam!</p>
+      </article>
+
+      <article class="h-100 p-5 text-bg-dark rounded-3">
+        <h2>Dokumentation</h2>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa sunt quas porro, error similique
+          consequatur ad. Modi, ea. Ea, inventore sunt? Blanditiis harum quod voluptatem iusto eum explicabo
+          veniam totam!</p>
+      </article>
+    </section>
 
   </main>
+
   <footer class="py-3 my-4 border-top">
     <span class="mb-3 p-3 text-body-secondary">Julia Heinzelmann</span>
   </footer>
