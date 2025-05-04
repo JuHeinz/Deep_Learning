@@ -2,7 +2,7 @@
 const imageFolder = "./image-input/";
 const correctImages = ["input-0.jpg", "input-1.jpg", "input-2.jpg",]
 const incorrectImages = ["input-3.jpg", "input-4.jpg", "input-5.jpg"]
-const classifier = ml5.imageClassifier("MobileNet");
+const classifier = ml5.imageClassifier("imagenet");
 
 
 window.addEventListener("DOMContentLoaded", (event) => {

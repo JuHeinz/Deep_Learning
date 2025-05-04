@@ -6,7 +6,7 @@
   --border-radius: 10px;
 }
 
-#input-output{
+#input-output {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -39,7 +39,7 @@
   background-color: var(--secondary);
 }
 
-#dialogue-input{
+#dialogue-input {
   max-width: 30vh;
 }
 
@@ -60,7 +60,7 @@ section {
   width: max-content;
 }
 
-.left-col{
+.left-col {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -68,14 +68,14 @@ section {
   height: 40vh;
 }
 
-img{
+img {
   width: 35vh;
   height: 35vh;
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
 }
 
-.result-holder{
+.result-holder {
   display: flex;
   align-items: center;
   margin: 0;
@@ -104,3 +104,6 @@ canvas {
   border-radius: var(--border-radius);
 }
 
+#part-3 div {
+  max-width: 80vw;
+}
