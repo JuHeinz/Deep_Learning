@@ -6,59 +6,33 @@ class Card {
 
     // Create the card structure
     createCard() {
-        // Create the card container
+        // Create the card 
         const card = document.createElement("div");
-        card.className = "card border";
-        card.style.maxWidth = "80vw";
+        card.className = "classification-card";
 
-        // Create the row
-        const row = document.createElement("div");
-        row.className = "row g-0";
+        // Create imnage holder
+        this.leftCol = document.createElement("div");
+        this.leftCol.className = "left-col";
 
-        // Create the input-holder column
-        this.inputHolder = document.createElement("div");
-        this.inputHolder.className = "col-md-4 input-holder";
+        // Create chart holder
+        this.rightCol = document.createElement("div");
+        this.rightCol.className = "right-col";
 
-        // Create the chart-holder column
-        const colChartHolder = document.createElement("div");
-        colChartHolder.className = "col-md-8";
+        // Create result holder
+        this.resultHolder = document.createElement("p");
+        this.resultHolder.className = "result-holder";
 
-        // Create the card body
-        const cardBody = document.createElement("div");
-        cardBody.className = "card-body";
+        this.iconHolder = document.createElement("span");
+        this.iconHolder.className = "icon";
 
-        // Create the card title
-        const cardTitle = document.createElement("h5");
-        cardTitle.className = "card-title";
-        let symbol;
-        let judgement;
+        this.resultLabel = document.createElement("span")
+        this.resultLabel.className = "label";
 
-        switch (this.isCorrect) {
-            case "right":
-                judgement = "Korrekte"
-                symbol = "✅"
-                break;
-            case "wrong":
-                judgement = "Inkorrekte"
-                symbol = "❌"
-                break;
-            default:
-                judgement = ""
-                symbol = ""
-                break;
-        }
-        cardTitle.textContent = symbol + judgement + " " + "Klassifikation";
-
-        // Create the card text
-        this.cardText = document.createElement("div");
 
         // Append elements to build the structure
-        cardBody.appendChild(cardTitle);
-        cardBody.appendChild(this.cardText);
-        colChartHolder.appendChild(cardBody);
-        row.appendChild(this.inputHolder);
-        row.appendChild(colChartHolder);
-        card.appendChild(row);
+        card.appendChild(this.leftCol)
+        card.appendChild(this.rightCol)
+
 
         return card;
     }
@@ -70,14 +44,39 @@ class Card {
 
     // Add an image to the input-holder
     addImage(imageSrc) {
-        const img = new Image(500, 500);
+        const img = new Image();
         img.src = imageSrc;
-        img.className = "img-fluid rounded-start";
-        this.inputHolder.appendChild(img);
+        this.leftCol.appendChild(img);
         return img;
     }
 
     addCanvas(canvas) {
-        this.cardText.appendChild(canvas)
+        this.rightCol.appendChild(canvas)
+    }
+
+    //Add the topmost guess to the card
+    addLabel(label, confidence) {
+        this.leftCol.appendChild(this.resultHolder);
+        this.resultHolder.appendChild(this.iconHolder);
+        this.resultHolder.appendChild(this.resultLabel);
+        let symbol;
+
+        switch (this.isCorrect) {
+            case "right":
+                symbol = "✅ "
+                break;
+            case "wrong":
+                symbol = "❌ "
+                break;
+            default:
+                symbol = ""
+                break;
+        }
+
+        let roundedConfidence = Math.round(confidence * 100); 
+        let resultString = label + " (" + roundedConfidence + " %)"
+
+        this.iconHolder.innerHTML = symbol;
+        this.resultLabel.innerHTML = resultString;
     }
 }

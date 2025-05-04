@@ -1,5 +1,5 @@
 
-const fileDialogue = document.querySelector("#upload-input");
+const fileDialogue = document.querySelector("#dialogue-input");
 const userOutput = document.querySelector('#user-output');
 const dropzone = document.querySelector("#dropzone");
 
@@ -34,7 +34,7 @@ dropzone.addEventListener("drop", (event) => {
 // Click on dropzone opens upload dialogue 
 dropzone.addEventListener("click", () => {
     fileDialogue.click();
-  });
+});
 
 //Reading file and checking if its valid
 function startUserUpload(file) {
@@ -74,8 +74,9 @@ function processImage(e) {
     // Classify the uploaded image
     classify(img).then((classification) => {
         let canvas = document.createElement("canvas");
-        chart(classification, canvas);
         card.addCanvas(canvas);
+        chart(classification, canvas);
+        card.addLabel(classification[0].label, classification[0].confidence)
 
     }).catch((error) => {
         console.error("Error during classification:", error)

@@ -8,12 +8,12 @@ const classifier = ml5.imageClassifier("MobileNet");
 window.addEventListener("DOMContentLoaded", (event) => {
 
   correctImages.forEach((file) => {
-   fromLocal(file, "right");
+    fromLocal(file, "right");
   });
 
   incorrectImages.forEach((file) => {
     fromLocal(file, "wrong");
-   });
+  });
 });
 
 
@@ -26,8 +26,9 @@ function fromLocal(file, isCorrect) {
   //get classification, then chart result
   classify(img).then((classification) => {
     let canvas = document.createElement("canvas");
-    chart(classification, canvas);
     card.addCanvas(canvas);
+    chart(classification, canvas);
+    card.addLabel(classification[0].label, classification[0].confidence)
 
   }).catch((error) => {
     console.error("Error during classification:", error)
@@ -50,6 +51,7 @@ function gotResult(result) {
 
 //Chart the result
 function chart(results, canvas) {
+  Chart.defaults.color = '#e7edf3';
 
   new Chart(canvas, {
 
@@ -57,18 +59,46 @@ function chart(results, canvas) {
     data: {
       labels: [results[0].label, results[1].label, results[2].label],
       datasets: [{
-        label: '% confidence',
-        data: [results[0].confidence, results[1].confidence, results[2].confidence],
-        borderWidth: 1
+        data: [results[0].confidence * 100, results[1].confidence * 100, results[2].confidence * 100],
+        backgroundColor: [
+          '#2b7abf',
+          '#0f477b',
+          '#14283a',
+        ],
+        borderWidth: 0,
+        clip: 1,
+
       }]
     },
     options: {
-      indexAxis: 'y',
+
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          max: 100,
+          title: {
+            display: true,
+            text: 'Confidence'
+          },
+          ticks: {
+            callback: function (value, index, ticks) {
+              return value + '%'
+            },
+           
+          },
+          grid: {
+            color: '#ffffff50',
+            drawOnChartArea: false,
+          }
+        }
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
         }
       }
+
     }
   });
 }
