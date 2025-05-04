@@ -4,11 +4,7 @@ const imageFolder = "./image-input/";
 const correctImages = ["input-0.jpg", "input-1.jpg", "input-2.jpg", ]
 const incorrectImages = ["input-3.jpg", "input-4.jpg", "input-5.jpg"]
 
-const btn = document.getElementById("upload-btn");
-  btn.addEventListener("click", (e) => {
-    startUserUpload()})
 
-const upload = document.getElementById("upload-input");
 
 window.addEventListener("DOMContentLoaded", (event) => {
   classifier = ml5.imageClassifier("MobileNet");
@@ -77,39 +73,5 @@ function chart(results, canvas) {
   });
 }
 
-function startUserUpload() {
-  let userOutput = document.querySelector('#user-output')
-  let file = upload.files[0]; // Get the uploaded file
- 
-  if (!file) {
-    console.error("No file uploaded");
-    return;
-  }
 
-  let reader = new FileReader();
-
-  reader.onload = function (event) {
-
-    const card = new Card()
-    userOutput.innerHTML = "";
-    card.appendTo(userOutput)
-    const img = card.addImage(event.target.result)
-
-    // Classify the uploaded image
-    classify(img).then((classification) => {
-      let canvas = document.createElement("canvas");
-      chart(classification, canvas);
-      card.addCanvas(canvas);
-
-    }).catch((error) => {
-      console.error("Error during classification:", error)
-    });
-  };
-
-  reader.onerror = function (error) {
-    console.error("Error reading file:", error);
-  };
-
-  reader.readAsDataURL(file); // Read the file as a data URL
-}
 
