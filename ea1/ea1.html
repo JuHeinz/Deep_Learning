@@ -15,14 +15,14 @@
 <body>
 
   <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="global-nav">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Deep Learning</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup1"
+          aria-controls="navbarNavAltMarkup1" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup1">
           <div class="navbar-nav">
             <a class="nav-link active" aria-current="page" href="#">EA1</a>
             <a class="nav-link disabled" href="#">EA2</a>
@@ -39,18 +39,33 @@
       Bilderkennung (Klassifikation) mit dem ml5-Framework
     </p>
 
-
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top mt-3" id="page-nav">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="#part-1">Beispiele</a>
+            <a class="nav-link" href="#part-2">Eigener Input</a>
+            <a class="nav-link" href="#part-3">Diskussion & Dokumentation</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!--EXAMPLES-->
     <section class="mx-3 d-flex flex-column gap-2" id="part-1">
       <h2 class="fw-light">A1 - Beispiele</h2>
 
     </section>
 
     <!-- USER UPLOAD -->
-    <section class="mx-3">
+    <section class="mx-3 bg-body-tertiary" id="part-2">
       <h2 class="fw-light">A2 - Eigener Input</h2>
       <p>Laden Sie ihr eigenes Bild zur Klassifikation hoch.</p>
 
-      <article class="d-flex flex-row justify-content-start gap-2 p-5 bg-body-tertiary rounded-3 ">
+      <article class="d-flex flex-row justify-content-start gap-2 p-5  rounded-3 ">
         <input class="form-control" type="file" id="upload-input">
         <button class="btn btn-primary" id="upload-btn" type="submit">Submit</button>
       </article>
@@ -58,7 +73,8 @@
       <article id="user-output"></article>
     </section>
 
-    <section mx-3 d-flex flex-column gap-2>
+    <!--DISCUSSION-->
+    <section mx-3 d-flex flex-column gap-2 id="part-3">
       <h2 class="fw-light">Diskussion und Dokumentation</h2>
 
       <article class="h-100 p-5 text-bg-dark rounded-3">
