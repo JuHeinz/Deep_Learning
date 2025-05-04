@@ -1,13 +1,11 @@
-let classifier;
 
 const imageFolder = "./image-input/";
-const correctImages = ["input-0.jpg", "input-1.jpg", "input-2.jpg", ]
+const correctImages = ["input-0.jpg", "input-1.jpg", "input-2.jpg",]
 const incorrectImages = ["input-3.jpg", "input-4.jpg", "input-5.jpg"]
-
+const classifier = ml5.imageClassifier("MobileNet");
 
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  classifier = ml5.imageClassifier("MobileNet");
 
   correctImages.forEach((file) => {
    fromLocal(file, "right");
@@ -18,7 +16,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
    });
 });
 
-function fromLocal(file, isCorrect){
+
+
+function fromLocal(file, isCorrect) {
   const card = new Card(isCorrect)
   card.appendTo(document.querySelector('#part-1'))
   const img = card.addImage(imageFolder + file)
@@ -50,7 +50,7 @@ function gotResult(result) {
 
 //Chart the result
 function chart(results, canvas) {
-  
+
   new Chart(canvas, {
 
     type: 'bar',

@@ -79,6 +79,5 @@ class Card {
 
     addCanvas(canvas) {
         this.cardText.appendChild(canvas)
-
     }
 }

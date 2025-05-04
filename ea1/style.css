@@ -1,0 +1,37 @@
+
+:root {
+  --primary: #2b7abf;
+  --secondary: #0f477b;
+  --text: #e7edf3;
+  --background: #020608;
+}
+
+#dropzone {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 30vh;
+  height: 30vh;
+  border: 1px solid var(--primary);
+}
+
+#dropzone.dragover {
+  background-color: var(--secondary);
+}
+
+#upload-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2em;
+}
+
+section{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  margin: 1rem 3rem 1rem 3rem;
+  border: 1px solid var(--secondary);
+  border-radius: 10px;
+}
