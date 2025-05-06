@@ -107,8 +107,20 @@
             <li> <a href="https://getbootstrap.com/">Bootstrap 5.3.5.</a> als CSS-Framework</li>
             <li>und lizenzfreie Bilder von <a href="https://pixabay.com/"> Pixabay</a>.</li>
           </ul>
-          <p>Bootstrap, ml5 und chart.js werden über Content Delivery Networks bezogen. Die Drag and Drop Funktion ist
+          <p>Bootstrap, ml5 und chart.js werden über Content Delivery Networks bezogen. Die Drag and Drop Funktion habe
+            ich
             selbt implementiert.</p>
+          <p> Die Klassikfikation für die sechs voreingestellten Inputs wird bei Seitenaufruf (nach Triggern des
+            <code>DOMContentLoaded </code> Events) automatisch durchgeführt. Um Probleme mit dem Erfüllen von Promises
+            zu umgehen,
+            verwende ich die <code>then()</code> Methode von JavaScript.
+          </p>
+          <p> Die default Bar Chart von chart.js habe ich dahingehend angepasst, dass nun auch das Prozentzeichen in der
+            y-Skala angezeigt wird. Die Confidence Werte, die vom Classifier ausgegeben werden, die ursprünglich
+            zwischen 0 und 1 fallen, habe ich in Prozentwerte umgewandelt. Ebenso habe ich die Skala aller Diagramme so
+            angepasst,
+            dass 100% immer das Maximum darstellt. So können die Confidence-Werte über alle Inputs hinweg auf einen
+            Blick verglichen werden.</p>
         </div>
 
       </section>
