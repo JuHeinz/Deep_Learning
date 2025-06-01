@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Deep Learning</title>
+    <title>EA2 | Deep Learning</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
@@ -24,9 +24,9 @@
           <a class="navbar-brand" href="#">Deep Learning</a>
 
           <div class="navbar-nav">
-            <a class="nav-link" href="./ea1.html">EA1</a>
+            <a class="nav-link" href="../ea1/ea1.html">EA1</a>
             <a class="nav-link active" aria-current="page" href="#">EA2</a>
-            <a class="nav-link disabled" href="#">EA3</a>
+            <a class="nav-link" href="../ea3/ea3.html">EA3</a>
           </div>
 
         </div>
@@ -52,17 +52,17 @@
         </div>
       </nav>
 
-      <!--DATENSÄTZE-->
+      <!--Datensätze-->
       <section id="part-1">
         <h2 class="fw-light">R1 - Datensätze</h2>
         <div class="plot-columns">
           <div>
             <h3>Unverrauschter Datensatz</h3>
-            <canvas class="ea2-canvas" id="data-without-noise"></canvas>
+            <canvas id="data-without-noise"></canvas>
           </div>
           <div>
             <h3>Verrauschter Datensatz</h3>
-            <canvas class="ea2-canvas" id="data-with-noise"></canvas>
+            <canvas id="data-with-noise"></canvas>
           </div>
         </div>
 
@@ -73,28 +73,28 @@
         <h2 class="fw-light">R2 - Vorhersage auf unverrauschten Daten</h2>
         <div class="plot-columns">
           <div>
-            <h3>Vorhersage auf Trainignsdaten</h3>
-            <canvas class="ea2-canvas" id="pred-noiseless-training"></canvas>
+            <h3>Vorhersage auf Trainingsdaten</h3>
+            <canvas id="noiseless-training"></canvas>
             <p>Loss/MSE = <span id='mse-2-training'></span></p>
           </div>
           <div>
             <h3>Vorhersage auf Testdaten</h3>
-            <canvas class="ea2-canvas" id="pred-noiseless-test"></canvas>
+            <canvas id="noiseless-test"></canvas>
           </div>
         </div>
       </section>
 
-      <!--Vorhersage auf verrauschten Daten -->
+      <!--Beste Vorhersage auf verrauschten Daten -->
       <section id="part-3">
         <h2 class="fw-light"> R3 - Beste Vorhersage auf verrauschten Daten</h2>
         <div class="plot-columns">
           <div>
-            <h3>Vorhersage auf Trainignsdaten</h3>
-            <canvas class="ea2-canvas" id="pred-noisy-training"></canvas>
+            <h3>Vorhersage auf Trainingsdaten</h3>
+            <canvas id="best-training"></canvas>
           </div>
           <div>
             <h3>Vorhersage auf Testdaten</h3>
-            <canvas class="ea2-canvas" id="pred-noisy-test"></canvas>
+            <canvas id="best-test"></canvas>
           </div>
         </div>
       </section>
@@ -104,12 +104,12 @@
         <h2 class="fw-light">R4 - Vorhersage des Overfit-Modells</h2>
         <div class="plot-columns">
           <div>
-            <h3>Vorhersage auf Trainignsdaten</h3>
-            <canvas class="ea2-canvas" id="pred-noisy-training"></canvas>
+            <h3>Vorhersage auf Trainingsdaten</h3>
+            <canvas id="overfitting-training"></canvas>
           </div>
           <div>
             <h3>Vorhersage auf Testdaten</h3>
-            <canvas class="ea2-canvas" id="pred-noisy-test"></canvas>
+            <canvas id="overfitting-test"></canvas>
           </div>
         </div>
       </section>
@@ -117,10 +117,10 @@
       <!--Diskussion -->
       <section id="part-5">
         <h2 class="fw-light">Diskussion</h2>
-        <p>TODO:</p>
+        <p>:</p>
         <ul>
-          <li>Shuffle Data</li>
-          <li>Normalize Data</li>
+          <li></li>
+          <li></li>
         </ul>
       </section>
 
@@ -144,6 +144,7 @@
       <span class="mb-3 p-3 text-body-secondary">Julia Heinzelmann</span>
     </footer>
     <script src="./regression.js"></script>
+    <script src="./plotting.js"></script>
     <!--  <script src="./tensorflow-tutorial.js"></script>-->
   </body>
 
