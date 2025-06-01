@@ -107,3 +107,11 @@ canvas {
 #part-3 div {
   max-width: 80vw;
 }
+
+
+.plot-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100vw;
+}
