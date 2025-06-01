@@ -1,20 +1,9 @@
-document.addEventListener('DOMContentLoaded', run);
 const noiseless_canvas = document.getElementById("data-without-noise");
 const noisy_canvas = document.getElementById("data-with-noise");
 
-async function run() {
+function run() {
     let data = createData();
-    // plotData(data)
-
-    tfvis.render.scatterplot(
-        { name: 'Horsepower v MPG' },
-        { data },
-        {
-            xLabel: 'Horsepower',
-            yLabel: 'MPG',
-            height: 300
-        }
-    );
+    plotData(data, noiseless_canvas)
 }
 
 
@@ -45,10 +34,11 @@ function splitAndPrepareData() {
 
 }
 
-function plotData(data, canvas = noiseless_canvas) {
-    // Convert Map to arrays for Chart.js
-    //const xValues = 
-    //const yValues =
+function plotData(data, canvas) {
+    // Sort data by x for a proper line chart
+    const sortedData = data.slice().sort((a, b) => a.x - b.x);
+    const xValues = sortedData.map(point => point.x);
+    const yValues = sortedData.map(point => point.y);
 
     new Chart(canvas, {
         type: 'line',
@@ -82,3 +72,5 @@ function plotData(data, canvas = noiseless_canvas) {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', run);
