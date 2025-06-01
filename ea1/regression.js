@@ -1,13 +1,30 @@
 const noiseless_canvas = document.getElementById("data-without-noise");
 const noisy_canvas = document.getElementById("data-with-noise");
-
+const chartOptions = {
+    scales: {
+        x: {
+            type: 'linear',
+            position: 'center',
+            title: {
+                display: true,
+                text: 'x'
+            }
+        },
+        y: {
+            title: {
+                display: true,
+                text: 'y(x)'
+            }
+        }
+    }
+}
 function run() {
     let data = createData();
     let noiselessData = getNoiselessData(data);
     let noisyData = getNoisyData(data);
 
-    plotData(noiselessData, noiseless_canvas)
-    plotData(noisyData, noisy_canvas)
+    plotTestAndTraining(noiselessData, noiseless_canvas)
+    plotTestAndTraining(noisyData, noisy_canvas)
 }
 
 
@@ -16,8 +33,7 @@ function createData() {
     const data = []
     for (let index = 0; index < 100; index++) {
         // TODO: Werte müssen gleich verteilt sein
-        // generate random x value between -2 and 2 (make sure no values are double)
-        // Generates a random number between -2 and 2
+        // Generates a random  x Value between -2 and 2
         let x = Math.random() * 4 - 2;
         // generate y values by feeding it into the function
         let y = 0.5 * (x + 0.8) * (x + 1.8) * (x - 0.2) * (x - 0.3) * (x - 1.9) + 1
@@ -59,63 +75,36 @@ function addGaussianNoise(data) {
     });
 }
 
-function plotData(data, canvas) {
+function plotTestAndTraining(data, canvas) {
     // Sort data by x for a proper line chart
     let training = data[0];
     let test = data[1];
 
 
     const sortedTraining = training.slice().sort((a, b) => a.x - b.x);
-    const xTraining = sortedTraining.map(point => point.x);
-    const yTraining = sortedTraining.map(point => point.y);
-
     const sortedTest = test.slice().sort((a, b) => a.x - b.x);
-    const xTest = sortedTest.map(point => point.x);
-    const yTest = sortedTest.map(point => point.y);
-
 
     new Chart(canvas, {
-        type: 'line',
+        type: 'scatter',
 
         data: {
-            labels: xTraining,
             datasets: [{
                 label: 'Training',
-                data: yTraining,
+                data: sortedTraining,
                 borderColor: '#2b7abf',
                 backgroundColor: 'rgb(43, 122, 191)',
-                fill: false,
-                tension: 0.1,
-                pointRadius: 0
+
             },
             {
                 label: 'Test',
-                data: yTest,
+                data: sortedTest,
                 borderColor: 'rgb(191, 43, 68)',
                 backgroundColor: 'rgb(191, 43, 68)',
-                fill: false,
-                tension: 0.1,
-                pointRadius: 0
+
             }]
 
         },
-        options: {
-            scales: {
-                x: {
-
-                    title: {
-                        display: true,
-                        text: 'x'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'y'
-                    }
-                }
-            }
-        }
+        options: chartOptions
     });
 }
 

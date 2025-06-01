@@ -54,7 +54,7 @@
 
       <!--DATENSÄTZE-->
       <section id="part-1">
-        <h2 class="fw-light">Datensätze</h2>
+        <h2 class="fw-light">R1 - Datensätze</h2>
         <div class="plot-columns">
           <div>
             <h3>Unverrauschter Datensatz</h3>
@@ -70,19 +70,48 @@
 
       <!--Vorhersage auf unverrauschten Daten -->
       <section id="part-2">
-        <h2 class="fw-light">Vorhersage auf unverrauschten Daten</h2>
+        <h2 class="fw-light">R2 - Vorhersage auf unverrauschten Daten</h2>
+        <div class="plot-columns">
+          <div>
+            <h3>Vorhersage auf Trainignsdaten</h3>
+            <canvas class="ea2-canvas" id="pred-noiseless-training"></canvas>
+            <p>Loss/MSE = <span id='mse-2-training'></span></p>
+          </div>
+          <div>
+            <h3>Vorhersage auf Testdaten</h3>
+            <canvas class="ea2-canvas" id="pred-noiseless-test"></canvas>
+          </div>
+        </div>
       </section>
 
       <!--Vorhersage auf verrauschten Daten -->
       <section id="part-3">
-        <h2 class="fw-light">Vorhersage auf verrauschten Daten</h2>
-
+        <h2 class="fw-light"> R3 - Beste Vorhersage auf verrauschten Daten</h2>
+        <div class="plot-columns">
+          <div>
+            <h3>Vorhersage auf Trainignsdaten</h3>
+            <canvas class="ea2-canvas" id="pred-noisy-training"></canvas>
+          </div>
+          <div>
+            <h3>Vorhersage auf Testdaten</h3>
+            <canvas class="ea2-canvas" id="pred-noisy-test"></canvas>
+          </div>
+        </div>
       </section>
 
       <!--Vorhersage des Overfit-Modells -->
       <section id="part-4">
-        <h2 class="fw-light">Vorhersage des Overfit-Modells</h2>
-
+        <h2 class="fw-light">R4 - Vorhersage des Overfit-Modells</h2>
+        <div class="plot-columns">
+          <div>
+            <h3>Vorhersage auf Trainignsdaten</h3>
+            <canvas class="ea2-canvas" id="pred-noisy-training"></canvas>
+          </div>
+          <div>
+            <h3>Vorhersage auf Testdaten</h3>
+            <canvas class="ea2-canvas" id="pred-noisy-test"></canvas>
+          </div>
+        </div>
       </section>
 
       <!--Diskussion -->
