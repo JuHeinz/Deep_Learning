@@ -1,16 +1,24 @@
 document.addEventListener('DOMContentLoaded', run);
 
 function run() {
-    let data = createData();
+    const data = createData();
     let noiselessData = getNoiselessData(data);
+    let noiselessTest = noiselessData[0]
+    let noiselessTraining = noiselessData[1]
+
     let noisyData = getNoisyData(data);
+    let noisyTest = noisyData[0];
+    let noisyTraining = noisyData[1];
+
+    tfvis.render.scatterplot({ name: 'Noiseless Data', tab: 'Charts' }, { values: [noiselessTest, noiselessTraining], series: ['Test', 'Training'] });
+    tfvis.render.scatterplot({ name: 'Noisy Data', tab: 'Charts' }, { values: [noisyTest, noisyTraining], series: ['Test', 'Training'] });
 
     plotTestAndTraining(noiselessData, noiseless_canvas)
     plotTestAndTraining(noisyData, noisy_canvas)
 
-    // Create the model
-    // const model = createModel();
-    //tfvis.show.modelSummary({ name: 'Model Summary' }, model);
+    //Create the model
+    const model = createModel();
+    tfvis.show.modelSummary({ name: 'Model Summary' }, model);
 
 }
 
@@ -70,11 +78,12 @@ function createModel() {
     // Add a single input layer
     model.add(tf.layers.dense({ inputShape: [1], units: 1, useBias: true }));
 
+    // introduce a non-linear activation function
+    model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
+
     // Add an output layer
     model.add(tf.layers.dense({ units: 1, useBias: true }));
 
-    // introduce a non-linear activation function
-    model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
 
     return model;
 }

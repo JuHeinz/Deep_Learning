@@ -7,8 +7,6 @@ async function run() {
         y: d.mpg,
     }));
 
-    console.dir(values)
-
     tfvis.render.scatterplot(
         { name: 'Horsepower v MPG' },
         { values },
@@ -34,6 +32,8 @@ async function run() {
     // Make some predictions using the model and compare them to the
     // original data
     testModel(model, data, tensorData);
+
+
 }
 
 /**
@@ -48,7 +48,7 @@ async function getData() {
         horsepower: car.Horsepower,
     }))
         .filter(car => (car.mpg != null && car.horsepower != null));
-
+    console.log('Cleaned from tutorial', cleaned)
     return cleaned;
 }
 
