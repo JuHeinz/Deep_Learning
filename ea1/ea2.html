@@ -9,7 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+    <!-- Import TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <!-- Import tfjs-vis -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
 
@@ -52,6 +55,10 @@
       <!--DATENSÄTZE-->
       <section id="part-1">
         <h2 class="fw-light">Datensätze</h2>
+        <h3>Unverrauschter Datensatz</h3>
+        <canvas id="data-without-noise"></canvas>
+        <h3>Verrauschter Datensatz</h3>
+        <canvas id="data-with-noise"></canvas>
 
       </section>
 
@@ -75,7 +82,11 @@
       <!--Diskussion -->
       <section id="part-5">
         <h2 class="fw-light">Diskussion</h2>
-
+        <p>TODO:</p>
+        <ul>
+          <li>Shuffle Data</li>
+          <li>Normalize Data</li>
+        </ul>
       </section>
 
       <!--DOKUMENTATION-->
@@ -97,7 +108,8 @@
     <footer class="py-3 my-4 border-top">
       <span class="mb-3 p-3 text-body-secondary">Julia Heinzelmann</span>
     </footer>
-    <script src="./regression.js"></script>
+    <!-- <script src="./regression.js"></script> -->
+    <script src="./tensorflow-tutorial.js"></script>
   </body>
 
 </html>
