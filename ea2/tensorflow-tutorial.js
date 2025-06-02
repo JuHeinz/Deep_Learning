@@ -48,7 +48,6 @@ async function getData() {
         horsepower: car.Horsepower,
     }))
         .filter(car => (car.mpg != null && car.horsepower != null));
-    console.log('Cleaned from tutorial', cleaned)
     return cleaned;
 }
 
@@ -111,6 +110,12 @@ function convertToTensor(data) {
 }
 
 async function trainModel(model, inputs, labels) {
+
+    console.dir(model)
+    console.dir(inputs)
+    console.dir(labels)
+
+
     // Prepare the model for training.
     model.compile({
         optimizer: tf.train.adam(),

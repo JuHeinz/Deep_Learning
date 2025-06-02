@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', run);
 
-function run() {
+async function run() {
     const data = createData();
     let noiselessData = getNoiselessData(data);
     let noiselessTest = noiselessData[0]
@@ -19,6 +19,22 @@ function run() {
     //Create the model
     const model = createModel();
     tfvis.show.modelSummary({ name: 'Model Summary' }, model);
+
+    //Convert data to tensors
+    const tensorData = toTensor(noiselessTraining);
+
+    const inputs = tensorData.inputTensor;
+    const labels = tensorData.labelTensor;
+
+    console.dir(tensorData);
+
+    // Train the model
+    await train(model, inputs, labels);
+    console.log('Done Training');
+
+    // Make some predictions using the model and compare them to the
+    // original data
+    const predictions = test(model, data, tensorData);
 
 }
 
