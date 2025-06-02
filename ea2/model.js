@@ -31,8 +31,8 @@ async function train(model, inputs, labels) {
         metrics: ['mse'],
     });
 
-    const batchSize = 32;
-    const epochs = 50;
+    const batchSize = 5;
+    const epochs = 10;
 
     return await model.fit(inputs, labels, {
         batchSize,
@@ -47,40 +47,23 @@ async function train(model, inputs, labels) {
 }
 
 // Create a prediction with the given model on the given data
-function test(model, inputData) {
+function predict(model, input) {
 
-    const [input_X, predicted_y] = tf.tidy(() => {
+    const input_X = Array.from(input).map((d) => d.x);
+    const true_y = Array.from(input).map((d) => d.y);
 
-        // makes X's into a 1D tensor
-        const XAsArray = Array.from(inputData).map((d) => d.x);
-        const XsToPredictFor = tf.tensor1d(XAsArray);
-
-        const predictedYs = model.predict(XsToPredictFor);
-        return [XsToPredictFor.dataSync(), predictedYs.dataSync()];
+    const predicted_y = tf.tidy(() => {
+        const XsToPredictFor = tf.tensor1d(input_X); // make X's into a 1D tensor
+        return model.predict(XsToPredictFor).dataSync();
     });
 
-    const trueY_AsArray = Array.from(inputData).map((d) => d.y);
-    const true_Y = tf.tensor1d(trueY_AsArray);
-
-    const predYAsTensor = tf.tensor1d(predicted_y)
-
-    const mse = tf.losses.meanSquaredError(true_Y, predYAsTensor);
+    //Calculate mean squared error
+    const mse = tf.losses.meanSquaredError(tf.tensor1d(true_y), tf.tensor1d(predicted_y));
 
     // Make an array from the input x's and predicted y's
-    const predictedPoints = Array.from(input_X).map((val, i) => {
-        return { x: val, y: predicted_y[i] }
+    const predictedPoints = Array.from(input_X).map((x, i) => {
+        return { x: x, y: predicted_y[i] }
     });
-
-    tfvis.render.scatterplot(
-        { name: 'Model Predictions vs Original Data' },
-        { values: [inputData, predictedPoints], series: ['original', 'predicted'] },
-        {
-            xLabel: 'x',
-            yLabel: 'y(x)',
-            height: 300
-        }
-    );
-
 
     return { prediction: predictedPoints, mse: mse.dataSync()[0] };
 }

@@ -1,6 +1,7 @@
 const noiseless_canvas = document.getElementById("data-without-noise");
 const noisy_canvas = document.getElementById("data-with-noise");
 const noiseless_training = document.getElementById("noiseless-training");
+Chart.defaults.color = 'rgb(255, 255, 255)';
 
 const scaleOptions = {
     scales: {
@@ -23,30 +24,27 @@ const scaleOptions = {
 }
 
 // Scatterplot where test and training data are both plotted in the same graph
-function plotTestAndTraining(data, canvas) {
+function plotGeneratedData(data, canvas) {
 
     let training = data[0];
     let test = data[1];
 
-    //Sort data from smallest to biggest x value
-    const sortedTraining = training.slice().sort((a, b) => a.x - b.x);
-    const sortedTest = test.slice().sort((a, b) => a.x - b.x);
-
     //Plot data
     new Chart(canvas, {
+
         type: 'scatter',
 
         data: {
             datasets: [{
                 label: 'Training',
-                data: sortedTraining,
+                data: training,
                 borderColor: '#2b7abf',
                 backgroundColor: 'rgb(43, 122, 191)',
 
             },
             {
                 label: 'Test',
-                data: sortedTest,
+                data: test,
                 borderColor: 'rgb(191, 43, 68)',
                 backgroundColor: 'rgb(191, 43, 68)',
 
