@@ -21,11 +21,8 @@ function toTensor(data) {
     });
 }
 
+// Train the model on the training data
 async function train(model, inputs, labels) {
-
-    console.dir(model)
-    console.dir(inputs)
-    console.dir(labels)
 
     // Prepare the model for training.
     model.compile({
@@ -49,22 +46,30 @@ async function train(model, inputs, labels) {
     });
 }
 
+// Create a prediction with the given model on the given data
 function test(model, inputData) {
 
-    // Generate predictions for a uniform range of x values between -2 and 2;
-    const [xs, preds] = tf.tidy(() => {
+    const [input_X, predicted_y] = tf.tidy(() => {
 
-        const XsToPredictFor = tf.linspace(-2, 2, 100);
-        const predictedYs = model.predict(XsToPredictFor.reshape([100, 1]));
+        // makes X's into a 1D tensor
+        const XAsArray = Array.from(inputData).map((d) => d.x);
+        const XsToPredictFor = tf.tensor1d(XAsArray);
 
+        const predictedYs = model.predict(XsToPredictFor);
         return [XsToPredictFor.dataSync(), predictedYs.dataSync()];
     });
 
-    // Make an array from the input x's and predicted y's
-    const predictedPoints = Array.from(xs).map((val, i) => {
-        return { x: val, y: preds[i] }
-    });
+    const trueY_AsArray = Array.from(inputData).map((d) => d.y);
+    const true_Y = tf.tensor1d(trueY_AsArray);
 
+    const predYAsTensor = tf.tensor1d(predicted_y)
+
+    const mse = tf.losses.meanSquaredError(true_Y, predYAsTensor);
+
+    // Make an array from the input x's and predicted y's
+    const predictedPoints = Array.from(input_X).map((val, i) => {
+        return { x: val, y: predicted_y[i] }
+    });
 
     tfvis.render.scatterplot(
         { name: 'Model Predictions vs Original Data' },
@@ -76,5 +81,6 @@ function test(model, inputData) {
         }
     );
 
-    return predictedPoints;
+
+    return { prediction: predictedPoints, mse: mse.dataSync()[0] };
 }
