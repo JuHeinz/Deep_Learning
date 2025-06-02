@@ -54,51 +54,55 @@
 
     -->
 
-      <!--Datensätze-->
+      <!--R1: Datensätze-->
       <section id="part-1">
         <h2 class="fw-light">R1 - Datensätze</h2>
         <div class="plot-columns">
           <div>
             <h3>Unverrauschter Datensatz</h3>
-            <canvas id="data-without-noise"></canvas>
+            <canvas id="r1_canvas_noiseless"></canvas>
           </div>
           <div>
             <h3>Verrauschter Datensatz</h3>
-            <canvas id="data-with-noise"></canvas>
+            <canvas id="r1_canvas_noisy"></canvas>
           </div>
         </div>
 
       </section>
 
-      <!--Vorhersage auf unverrauschten Daten -->
+      <!--R2: Vorhersage auf unverrauschten Daten -->
       <section id="part-2">
         <h2 class="fw-light">R2 - Vorhersage auf unverrauschten Daten</h2>
         <div class="plot-columns">
           <div>
             <h3>Vorhersage auf Trainingsdaten</h3>
-            <canvas id="noiseless-training"></canvas>
+            <canvas id="r2_canvas_training"></canvas>
             <p class="mse-dispay">Loss/MSE = <span id='r2-mse-training'></span></p>
           </div>
           <div>
             <h3>Vorhersage auf Testdaten</h3>
-            <canvas id="noiseless-test"></canvas>
+            <canvas id="r2_canvas_test"></canvas>
             <p class="mse-dispay">Loss/MSE = <span id='r2-mse-test'></span></p>
 
           </div>
         </div>
       </section>
 
-      <!--Beste Vorhersage auf verrauschten Daten -->
+      <!-- R3: Beste Vorhersage auf verrauschten Daten -->
       <section id="part-3">
         <h2 class="fw-light"> R3 - Beste Vorhersage auf verrauschten Daten</h2>
         <div class="plot-columns">
           <div>
             <h3>Vorhersage auf Trainingsdaten</h3>
-            <canvas id="best-training"></canvas>
+            <canvas id="r3_canvas_training"></canvas>
+            <p class="mse-dispay">Loss/MSE = <span id='r3_mse_training_span'></span></p>
+
           </div>
           <div>
             <h3>Vorhersage auf Testdaten</h3>
-            <canvas id="best-test"></canvas>
+            <canvas id="r3_canvas_test"></canvas>
+            <p class="mse-dispay">Loss/MSE = <span id='r3_mse_test_span'></span></p>
+
           </div>
         </div>
       </section>
@@ -109,11 +113,14 @@
         <div class="plot-columns">
           <div>
             <h3>Vorhersage auf Trainingsdaten</h3>
-            <canvas id="overfitting-training"></canvas>
+            <canvas id="r4_canvas_training"></canvas>
+            <p class="mse-dispay">Loss/MSE = <span id='r4_mse_training_span'></span></p>
+
           </div>
           <div>
             <h3>Vorhersage auf Testdaten</h3>
-            <canvas id="overfitting-test"></canvas>
+            <canvas id="r4_canvas_test"></canvas>
+            <p class="mse-dispay">Loss/MSE = <span id='r4_mse_test_span'></span></p>
           </div>
         </div>
       </section>

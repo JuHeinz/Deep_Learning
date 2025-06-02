@@ -1,7 +1,27 @@
-const noiseless_canvas = document.getElementById("data-without-noise");
-const noisy_canvas = document.getElementById("data-with-noise");
-const noiseless_training = document.getElementById("noiseless-training");
+
 Chart.defaults.color = 'rgb(255, 255, 255)';
+
+const test_color = 'rgb(35, 229, 200)';
+const training_color = 'rgb(43, 122, 191)';
+const prediction_color = 'rgb(246, 194, 21)'
+
+const r1_canvas_noiseless = document.getElementById("r1_canvas_noiseless");
+const r1_canvas_noisy = document.getElementById("r1_canvas_noisy");
+
+const r2_canvas_training = document.getElementById("r2_canvas_training");
+const r2_canvas_test = document.getElementById("r2_canvas_test");
+const r2_mse_training_span = document.getElementById("r2-mse-training");
+const r2_mse_test_span = document.getElementById("r2-mse-test");
+
+const r3_canvas_training = document.getElementById("r3_canvas_training");
+const r3_canvas_test = document.getElementById("r3_canvas_test");
+const r3_mse_training_span = document.getElementById("r3_mse_training_span");
+const r3_mse_test_span = document.getElementById("r3_mse_test_span");
+
+const r4_canvas_training = document.getElementById("r4_canvas_training");
+const r4_canvas_test = document.getElementById("r4_canvas_test");
+const r4_mse_training_span = document.getElementById("r4_mse_training_span");
+const r4_mse_test_span = document.getElementById("r4_mse_test_span");
 
 const scaleOptions = {
     scales: {
@@ -11,13 +31,17 @@ const scaleOptions = {
             title: {
                 display: true,
                 text: 'x'
-            }
+            },
+            min: -2,
+            max: 2
         },
         y: {
             title: {
                 display: true,
                 text: 'y(x)'
-            }
+            },
+            min: -2.5,
+            max: 2.5
         }
     }
 
@@ -38,15 +62,13 @@ function plotGeneratedData(data, canvas) {
             datasets: [{
                 label: 'Training',
                 data: training,
-                borderColor: '#2b7abf',
-                backgroundColor: 'rgb(43, 122, 191)',
+                backgroundColor: training_color,
 
             },
             {
                 label: 'Test',
                 data: test,
-                borderColor: 'rgb(191, 43, 68)',
-                backgroundColor: 'rgb(191, 43, 68)',
+                backgroundColor: test_color,
 
             }]
 
@@ -57,24 +79,31 @@ function plotGeneratedData(data, canvas) {
 
 
 // Plot the prediction vs the input data that the prediction was made on
-function plotPrediction(prediction, inputData, canvas) {
+function plotPrediction(prediction, inputData, canvas, dataName) {
+
+    if (dataName == 'test') {
+        inputColor = test_color
+        label = 'Test Data'
+    } else {
+        inputColor = training_color
+        label = 'Training Data'
+
+    }
 
     new Chart(canvas, {
         type: 'scatter',
 
         data: {
             datasets: [{
-                label: 'Input',
+                label: label,
                 data: inputData,
-                borderColor: 'rgb(35, 229, 200)',
-                backgroundColor: 'rgb(35, 229, 200)',
+                backgroundColor: inputColor,
 
             },
             {
                 label: 'Prediction',
                 data: prediction.prediction,
-                borderColor: 'rgb(246, 194, 21)',
-                backgroundColor: 'rgb(246, 194, 21)',
+                backgroundColor: prediction_color,
 
             }]
 

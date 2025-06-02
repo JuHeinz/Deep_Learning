@@ -22,7 +22,7 @@ function toTensor(data) {
 }
 
 // Train the model on the training data
-async function train(model, inputs, labels) {
+async function train(model, inputs, labels, epochs) {
 
     // Prepare the model for training.
     model.compile({
@@ -31,8 +31,7 @@ async function train(model, inputs, labels) {
         metrics: ['mse'],
     });
 
-    const batchSize = 5;
-    const epochs = 10;
+    const batchSize = 32;
 
     return await model.fit(inputs, labels, {
         batchSize,
@@ -44,6 +43,10 @@ async function train(model, inputs, labels) {
             { height: 200, callbacks: ['onEpochEnd'] }
         )
     });
+}
+
+function logTrainingPerformance() {
+
 }
 
 // Create a prediction with the given model on the given data
