@@ -14,9 +14,14 @@ section {
   gap: 2rem;
   padding: 1rem;
   margin: 1rem 3rem 1rem 3rem;
+  background-color: var(--background);
+  border-radius: var(--border-radius);
 }
 
-
+h2 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
 
 .plot-columns {
   display: grid;

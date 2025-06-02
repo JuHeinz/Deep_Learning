@@ -54,16 +54,31 @@
 
     -->
 
+      <section>
+        <p><b>Aufgabenstellung: </b>Nutzen Sie ein Feed-Forward Neural Network (FFNN) als Modell zur Regression der
+          reellwertigen Funktion:
+          <code>y(x) = 0.5*(x+0.8)*(x+1.8)*(x-0.2)*(x-0.3)*(x-1.9)+1</code>
+        </p>
+      </section>
+
       <!--R1: Datensätze-->
       <section id="part-1">
-        <h2 class="fw-light">R1 - Datensätze</h2>
+        <h2>R1 - Datensätze</h2>
+        <p>
+          Dies sind 100 zufällige, gleich-verteilte x Werte aus dem Intervall [-2,+2] für
+          die o.g. Funktion. Die x-Werte entsprechen hier den Inputs und die y-Werte den Labeln, die im Laufe der
+          Aufgabe predicted werden sollen.
+        </p>
         <div class="plot-columns">
           <div>
-            <h3>Unverrauschter Datensatz</h3>
+            <h3 class="fw-light">Unverrauschter Datensatz</h3>
+            <p> Diese wurden dann in 50 Trainingsdaten-Paare und 50 Testdaten-Paare aufgeteilt.
+            </p>
             <canvas id="r1_canvas_noiseless"></canvas>
           </div>
           <div>
-            <h3>Verrauschter Datensatz</h3>
+            <h3 class="fw-light">Verrauschter Datensatz</h3>
+            <p>Anschließend wurden die y-Werte künstlich verrauscht (Gaussian Noise, V=0.05).</p>
             <canvas id="r1_canvas_noisy"></canvas>
           </div>
         </div>
@@ -72,15 +87,17 @@
 
       <!--R2: Vorhersage auf unverrauschten Daten -->
       <section id="part-2">
-        <h2 class="fw-light">R2 - Vorhersage auf unverrauschten Daten</h2>
+        <h2>R2 - Vorhersage auf unverrauschten Daten</h2>
+        <p>Da alle Daten unverrauscht sind und auf der Ground Truth liegen, sollte das Modell auf den Testdaten etwas
+          genau so gut abschneiden wie auf den Trainingsdaten.</p>
         <div class="plot-columns">
           <div>
-            <h3>Vorhersage auf Trainingsdaten</h3>
+            <h3 class="fw-light">Vorhersage auf Trainingsdaten</h3>
             <canvas id="r2_canvas_training"></canvas>
             <p class="mse-dispay">Loss/MSE = <span id='r2-mse-training'></span></p>
           </div>
           <div>
-            <h3>Vorhersage auf Testdaten</h3>
+            <h3 class="fw-light">Vorhersage auf Testdaten</h3>
             <canvas id="r2_canvas_test"></canvas>
             <p class="mse-dispay">Loss/MSE = <span id='r2-mse-test'></span></p>
 
@@ -90,16 +107,18 @@
 
       <!-- R3: Beste Vorhersage auf verrauschten Daten -->
       <section id="part-3">
-        <h2 class="fw-light"> R3 - Beste Vorhersage auf verrauschten Daten</h2>
+        <h2> R3 - Beste Vorhersage auf verrauschten Daten</h2>
+        <p>Best-Fit: Durch die richtige Auswahl der Epochen soll dieses Modell möglichst gut generalisieren, also
+          im Test einen möglichst kleinen Loss (MSE) aufweisen. </p>
         <div class="plot-columns">
           <div>
-            <h3>Vorhersage auf Trainingsdaten</h3>
+            <h3 class="fw-light">Vorhersage auf Trainingsdaten</h3>
             <canvas id="r3_canvas_training"></canvas>
             <p class="mse-dispay">Loss/MSE = <span id='r3_mse_training_span'></span></p>
 
           </div>
           <div>
-            <h3>Vorhersage auf Testdaten</h3>
+            <h3 class="fw-light">Vorhersage auf Testdaten</h3>
             <canvas id="r3_canvas_test"></canvas>
             <p class="mse-dispay">Loss/MSE = <span id='r3_mse_test_span'></span></p>
 
@@ -109,16 +128,19 @@
 
       <!--Vorhersage des Overfit-Modells -->
       <section id="part-4">
-        <h2 class="fw-light">R4 - Vorhersage des Overfit-Modells</h2>
+        <h2>R4 - Vorhersage des Overfit-Modells</h2>
+        <p>Over-Fit: Dieses Modell wurde so lange zu trainiert, bis es overfittet, bis also der MSW auf den
+          Trainingsdaten deutlich
+          geringer ist als der auf den Testdaten. </p>
         <div class="plot-columns">
           <div>
-            <h3>Vorhersage auf Trainingsdaten</h3>
+            <h3 class="fw-light">Vorhersage auf Trainingsdaten</h3>
             <canvas id="r4_canvas_training"></canvas>
             <p class="mse-dispay">Loss/MSE = <span id='r4_mse_training_span'></span></p>
 
           </div>
           <div>
-            <h3>Vorhersage auf Testdaten</h3>
+            <h3 class="fw-light">Vorhersage auf Testdaten</h3>
             <canvas id="r4_canvas_test"></canvas>
             <p class="mse-dispay">Loss/MSE = <span id='r4_mse_test_span'></span></p>
           </div>
@@ -127,17 +149,27 @@
 
       <!--Diskussion -->
       <section id="part-5">
-        <h2 class="fw-light">Diskussion</h2>
-        <h3>R2: Vorhersage auf rauschfreien Daten</h3>
-        <h3>R3: Bestes Modell auf verrauschten Daten</h3>
-        <h3>R4: Overfitted Model</h3>
-        <p>Das Overfitting wurde durch eine erhöhte Anzahl der Epochen erzeugt.</p>
+        <h2>Diskussion</h2>
+        <article>
+          <h3 class="fw-light">R2: Vorhersage auf rauschfreien Daten</h3>
+          <p>Hier sollte der MSE auf den Trainingsdaten etwa genau so gut abschneiden wie auf den Testdaten. Dies ist in
+            der Regel auch eingetreten, die Differenz zwischen den MSEs lag meist unter 0.3</p>
+
+        </article>
+        <article>
+          <h3 class="fw-light">R3: Bestes Modell auf verrauschten Daten</h3>
+
+        </article>
+        <article>
+          <h3 class="fw-light">R4: Overfitted Model</h3>
+          <p>Das Overfitting wurde durch eine erhöhte Anzahl der Epochen erzeugt.</p>
+        </article>
 
       </section>
 
       <!--DOKUMENTATION-->
       <section id="part-6">
-        <h2 class="fw-light">Dokumentation</h2>
+        <h2>Dokumentation</h2>
         <div>
           <p>Folgende Libraries werden auf dieser Seite benutzt:</p>
           <ul>
