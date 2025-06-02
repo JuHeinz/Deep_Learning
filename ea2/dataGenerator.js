@@ -1,7 +1,10 @@
-// Create 100 random x values and their corresponding y values from function y(x) = 0.5*(x+0.8)*(x+1.8)*(x-0.2)*(x-0.3)*(x-1.9)+1
-function createData() {
+let half_n;
+
+// Create n random x values and their corresponding y values from function y(x) = 0.5*(x+0.8)*(x+1.8)*(x-0.2)*(x-0.3)*(x-1.9)+1
+function createData(n) {
+    half_n = n / 2;
     const data = []
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < n; index++) {
         // Generates a random x value between -2 and 2
         let x = Math.random() * 4 - 2;
         // generate y values by feeding it into the function
@@ -15,15 +18,15 @@ function createData() {
 
 // Split into training and test data (50/50)
 function getNoiselessData(data) {
-    let training = data.slice(0, 50);
-    let test = data.slice(50);
+    let training = data.slice(0, half_n);
+    let test = data.slice(half_n);
     return [training, test]
 }
 
 // Split into training and test data and add noise to y values
 function getNoisyData(data) {
-    let training = data.slice(0, 50);
-    let test = data.slice(50);
+    let training = data.slice(0, half_n);
+    let test = data.slice(half_n);
 
     // add noise to y values / labels
     let noisy_training = addGaussianNoise(training);

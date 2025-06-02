@@ -21,6 +21,26 @@ function toTensor(data) {
     });
 }
 
+function createModel() {
+    // Create a sequential model
+    const model = tf.sequential();
+
+    // Input layer, always needs an inputshape, in this case one, because we are only providing one value (the x value)
+    model.add(tf.layers.dense({ inputShape: [1], units: 1, useBias: true }));
+
+    // Hidden layer #1 with 100 neurons and relu activation function
+    model.add(tf.layers.dense({ units: 100, activation: 'relu' }));
+
+    // Hidden layer #2 with 100 neurons and relu activation function
+    model.add(tf.layers.dense({ units: 100, activation: 'relu' }));
+
+    // Output layer
+    model.add(tf.layers.dense({ units: 1, useBias: true }));
+    model.summary()
+
+    return model;
+}
+
 // Train the model on the training data
 async function train(model, inputs, labels, epochs) {
 
@@ -45,9 +65,6 @@ async function train(model, inputs, labels, epochs) {
     });
 }
 
-function logTrainingPerformance() {
-
-}
 
 // Create a prediction with the given model on the given data
 function predict(model, input) {

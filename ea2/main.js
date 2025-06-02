@@ -3,12 +3,13 @@ document.addEventListener('DOMContentLoaded', run);
 
 
 function run() {
-    //const data = createData();
-    //let noiselessData = getNoiselessData(data);
-    //let noisyData = getNoisyData(data);
+    const data = createData(100);
+    let noiselessData = getNoiselessData(data);
+    let noisyData = getNoisyData(data);
 
-    let noiselessData = [static_noiseless_train, static_noiseless_test]
-    let noisyData = [static_noisy_train, static_noisy_test]
+    //let noiselessData = [static_noiseless_train, static_noiseless_test]
+    //let noisyData = [static_noisy_train, static_noisy_test]
+
     //R1
     showGeneratedData(noiselessData, noisyData)
 
@@ -18,13 +19,13 @@ function run() {
 
 
     //R2: Vorhersage des Modells, das ohne Rauschen trainiert wurde y_unverrauscht(x), links auf den Trainingsdaten, rechts auf den Testdaten (beide ohne Rauschen).
-    runModel(model, noiselessData, 50, r2_canvas_training, r2_canvas_test, r2_mse_training_span, r2_mse_test_span)
+    runModel(model, noiselessData, 28, r2_canvas_training, r2_canvas_test, r2_mse_training_span, r2_mse_test_span)
 
     //R3: Die Vorhersage Ihres besten Modells y_best(x) trainiert auf den verrauschten Daten, links auf den Trainingsdaten, rechts auf den Testdaten (alles mit Rauschen).
-    runModel(model, noisyData, 50, r3_canvas_training, r3_canvas_test, r3_mse_training_span, r3_mse_test_span)
+    runModel(model, noisyData, 28, r3_canvas_training, r3_canvas_test, r3_mse_training_span, r3_mse_test_span)
 
     //R4: Die Vorhersage Ihres Overfit-Modells y_overfit(x) trainiert auf den verrauschten Daten, links auf den Trainingsdaten, rechts auf den Testdaten (alles mit Rauschen).
-    runModel(model, noisyData, 100, r4_canvas_training, r4_canvas_test, r4_mse_training_span, r4_mse_test_span)
+    runModel(model, noisyData, 40, r4_canvas_training, r4_canvas_test, r4_mse_training_span, r4_mse_test_span)
 
 }
 
@@ -65,22 +66,3 @@ async function runModel(model, data, epochs, canvas_train, canvas_test, span_tra
 }
 
 
-function createModel() {
-    // Create a sequential model
-    const model = tf.sequential();
-
-    // Input layer, always needs an inputshape, in this case one, because we are only providing one value (the x value)
-    model.add(tf.layers.dense({ inputShape: [1], units: 1, useBias: true }));
-
-    // Hidden layer #1 with 100 neurons and relu activation function
-    model.add(tf.layers.dense({ units: 100, activation: 'relu' }));
-
-    // Hidden layer #2 with 100 neurons and relu activation function
-    model.add(tf.layers.dense({ units: 100, activation: 'relu' }));
-
-    // Output layer
-    model.add(tf.layers.dense({ units: 1, useBias: true }));
-    model.summary()
-
-    return model;
-}
