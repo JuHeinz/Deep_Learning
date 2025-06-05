@@ -67,7 +67,7 @@ async function train(model, inputs, labels, epochs) {
 
 
 // Create a prediction with the given model on the given data
-function predict(model, input) {
+async function predict(model, input) {
 
     const input_X = Array.from(input).map((d) => d.x);
     const true_y = Array.from(input).map((d) => d.y);

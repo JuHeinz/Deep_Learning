@@ -65,14 +65,14 @@
       <section id="part-1">
         <h2>R1 - Datensätze</h2>
         <p>
-          Dies sind 100 zufällige, gleich-verteilte x Werte aus dem Intervall [-2,+2] für
+          Dies sind 400 zufällige, gleich-verteilte x Werte aus dem Intervall [-2,+2] für
           die o.g. Funktion. Die x-Werte entsprechen hier den Inputs und die y-Werte den Labeln, die im Laufe der
           Aufgabe predicted werden sollen.
         </p>
         <div class="plot-columns">
           <div>
             <h3 class="fw-light">Unverrauschter Datensatz</h3>
-            <p> Diese wurden dann in 50 Trainingsdaten-Paare und 50 Testdaten-Paare aufgeteilt.
+            <p> Diese wurden dann in 200 Trainingsdaten-Paare und 200 Testdaten-Paare aufgeteilt.
             </p>
             <canvas id="r1_canvas_noiseless"></canvas>
           </div>
@@ -129,7 +129,7 @@
       <!--Vorhersage des Overfit-Modells -->
       <section id="part-4">
         <h2>R4 - Vorhersage des Overfit-Modells</h2>
-        <p>Over-Fit: Dieses Modell wurde so lange zu trainiert, bis es overfittet, bis also der MSW auf den
+        <p>Over-Fit: Dieses Modell wurde so lange zu trainiert, bis es overfittet, bis also der MSE auf den
           Trainingsdaten deutlich
           geringer ist als der auf den Testdaten. </p>
         <div class="plot-columns">
@@ -151,18 +151,30 @@
       <section id="part-5">
         <h2>Diskussion</h2>
         <article>
+
+          <p> Zuerst wählte ich nur 100 Datenpunkte als Input. Bei diesen schwankte der MSE jedoch bei jedem
+            Durchlauf (Erstellen der Inputs, Trainieren und Vorhersage) so stark, dass es nicht möglich war Schlüsse
+            über die Performance der Modelle zu ziehen. Bei einer Inputmenge von 400 Datenpunkten war die Performance
+            stabiler. </p>
           <h3 class="fw-light">R2: Vorhersage auf rauschfreien Daten</h3>
           <p>Hier sollte der MSE auf den Trainingsdaten etwa genau so gut abschneiden wie auf den Testdaten. Dies ist in
-            der Regel auch eingetreten, die Differenz zwischen den MSEs lag meist unter 0.3</p>
+            der Regel auch eingetreten, die Differenz zwischen den MSEs lag meist unter 0.1, dies war deutlich geringer
+            als auf den verrauschten Daten.
+            Das liegt daran, dass das Modell hier präzise Hinweise auf die Funktion hat, die es approximieren soll.</p>
 
         </article>
         <article>
           <h3 class="fw-light">R3: Bestes Modell auf verrauschten Daten</h3>
-
+          Durch Beobachtung des Trainings-Fortschritts im Visor konnte ich bei mehreren Trainings feststellen, dass sich
+          der MSE zwischen 30 und 60 Epochen deutlich abflacht und eine erhöhte Anzahl an Epochen (und damit
+          Trainingszeit/-Ressourcen) kaum Verbesserungen mehr erbringt.
+          <p> </p>
         </article>
         <article>
           <h3 class="fw-light">R4: Overfitted Model</h3>
-          <p>Das Overfitting wurde durch eine erhöhte Anzahl der Epochen erzeugt.</p>
+          <p>Ich habe durch große Erhöhungen der Anzahl der Epcohen versucht Overfitting zu erzeugen. Allerdings schien
+            die Anzahl der Epochen kaum einen Unterschied in der Differenz zwischen Trainings-Loss und Test-Loss zu
+            machen. </p>
         </article>
 
       </section>
@@ -171,13 +183,19 @@
       <section id="part-6">
         <h2>Dokumentation</h2>
         <div>
+          <p>Bei jedem Aufrufen der Seite werden die Modelle neu trainiert und neue
+            Vorhersagen erstellt. </p>
+
+          <p>Das sequentielle Modell benutzt 2 Hidden Layer mit je 100 Units und ReLu als Activiation Function. Input-
+            und Output-Layer haben je eine Unit, da ein Y wert ja aus einem X Wert predicted werden soll. </p>
           <p>Folgende Libraries werden auf dieser Seite benutzt:</p>
           <ul>
             <li><a href="https://www.tensorflow.org/js">TensorFlow for JavaScript</a> für um ein Modell für ein
               Fast-Forward Neural Network zu definieren, dieses zu trainieren und Predictions mit diesem durchzuführen.
             </li>
             <li><a href="https://js.tensorflow.org/api_vis/1.5.1/">TensorFlow Visor</a> für die Darstellung des
-              Trainingsfortschritts.</li>
+              Trainingsfortschritts: Hiermit kann ich einsehen, ab wie vielen Epochen der Mean Square Error abflacht.
+            </li>
             <li><a href="https://www.chartjs.org/">chart.js</a> für das Plotten der Datensätze und Predictions.</li>
             <li> <a href="https://getbootstrap.com/">Bootstrap 5.3.5.</a> als CSS-Framework.</li>
           </ul>
