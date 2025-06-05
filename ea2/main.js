@@ -3,16 +3,16 @@ document.addEventListener('DOMContentLoaded', run);
 
 
 function run() {
-    const data = createData(400);
-    //let noiselessData = getNoiselessData(data);
-    //let noisyData = getNoisyData(data);
 
+    // Create data on every run
+    /* const data = createData(100);
+    let noiselessData = getNoiselessData(data);
+    let noisyData = getNoisyData(data);
+    */
 
+    // Use pre-created data
     let noiselessData = [static_noiseless_train, static_noiseless_test]
     let noisyData = [static_noisy_train, static_noisy_test]
-
-    console.log(noiselessData)
-    console.log(noisyData)
 
     //R1
     showGeneratedData(noiselessData, noisyData)
@@ -21,8 +21,8 @@ function run() {
     const model = createModel();
     tfvis.show.modelSummary({ name: 'Model Summary' }, model);
 
-    let r3_epochs = 40;
-    let r4_epochs = 300;
+    let r3_epochs = 200;
+    let r4_epochs = 400;
 
     //R2: Vorhersage des Modells, das ohne Rauschen trainiert wurde y_unverrauscht(x), links auf den Trainingsdaten, rechts auf den Testdaten (beide ohne Rauschen).
     runModel(model, noiselessData, r3_epochs, r2_canvas_training, r2_canvas_test, r2_mse_training_span, r2_mse_test_span, false)
