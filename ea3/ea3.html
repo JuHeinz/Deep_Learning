@@ -15,7 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
     <link rel="stylesheet" href="style.css">
 
-    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
@@ -39,31 +38,40 @@
     <main class="m-3 d-flex flex-column gap-2">
       <h1 class="display-5">Einsendeaufgabe 3</h1>
       <p class="lead">
-        Subtitle
+        Language Model zur Wortvorhersage mit rekurrenten LSTM Network
       </p>
 
       <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top mt-3" id="page-nav">
         <div class="container-fluid">
           <div class="navbar-nav">
-            <a class="nav-link" href="#part-1">R1</a>
-            <a class="nav-link" href="#part-2">R2</a>
-            <a class="nav-link" href="#part-3">R3</a>
+            <a class="nav-link" href="#part-1">Wortvorhersage</a>
+            <a class="nav-link" href="#part-2">Diskussion</a>
+            <a class="nav-link" href="#part-3">Dokumentation</a>
 
           </div>
         </div>
       </nav>
 
       <section id="part-1">
-        <h2 class="fw-light">R1</h2>
+        <h2 class="fw-light">Wortvorhersage</h2>
+
+        <textarea class="form-control mb-3" id="input"></textarea>
+        <div>
+          <button type="button" id="vorhersage" class="btn btn-primary">💭Vorhersage</button>
+          <button type="button" id="weiter" class="btn btn-primary">▶️Weiter</button>
+          <button type="button" id="auto" class="btn btn-primary">➡️Auto</button>
+        </div>
+
+        <dic class="select"></dic>
       </section>
 
       <section id="part-2">
-        <h2 class="fw-light">R2</h2>
+        <h2 class="fw-light">Diskussion</h2>
 
       </section>
-      <h2 class="fw-light">R3</h2>
 
       <section id="part-3">
+        <h2 class="fw-light">Dokumentation</h2>
 
       </section>
 
@@ -72,6 +80,7 @@
     <footer class="py-3 my-4 border-top">
       <span class="mb-3 p-3 text-body-secondary">Julia Heinzelmann</span>
     </footer>
+    <script src="./ea3.js"></script>
 
   </body>
 
