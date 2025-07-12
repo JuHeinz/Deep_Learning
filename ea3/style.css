@@ -67,6 +67,11 @@ h2 {
   border-color: var(--secondary);
 }
 
+
+.my-btn:disabled {
+  background-color: var(--primary-transparent);
+}
+
 #suggestion-section {
   background-color: var(--background);
   border-radius: var(--border-radius);
@@ -95,6 +100,8 @@ h2 {
   border-radius: var(--border-radius);
   border-color: var(--primary);
 }
+
+
 
 .word-btn:hover {
   background-color: var(--primary);
