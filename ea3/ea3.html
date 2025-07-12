@@ -41,6 +41,7 @@
         Language Model zur Wortvorhersage mit rekurrenten LSTM Network
       </p>
 
+      <!-- NAVIGATION-->
       <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top mt-3" id="page-nav">
         <div class="container-fluid">
           <div class="navbar-nav">
@@ -52,17 +53,35 @@
         </div>
       </nav>
 
+      <!-- INTERACTION-->
       <section id="part-1">
         <h2 class="fw-light">Wortvorhersage</h2>
 
-        <textarea class="form-control mb-3" id="input"></textarea>
-        <div>
-          <button type="button" id="vorhersage" class="btn btn-primary">💭Vorhersage</button>
-          <button type="button" id="weiter" class="btn btn-primary">▶️Weiter</button>
-          <button type="button" id="auto" class="btn btn-primary">➡️Auto</button>
+        <div id="text-input-container">
+          <textarea class="form-control" id="input" autocomplete="off" placeholder="Geben sie Text ein..."></textarea>
+
+          <div id="control-btn-container">
+            <button type="button" id="vorhersage" class="btn btn-primary my-btn">● Vorhersage generieren</button>
+
+            <button type="button" id="reset" class="btn btn-outline-light">Reset</button>
+
+          </div>
+
         </div>
 
-        <dic class="select"></dic>
+        <div id="suggestion-section">
+
+          <div id="suggestions-n-btns">
+            <div id="suggestions">
+            </div>
+            <div>
+              <button type="button" id="weiter" class="btn btn-primary my-btn">→ Weiter mit Bestem</button>
+              <button type="button" id="auto" class="btn btn-primary my-btn">↬ Auto (10)</button>
+            </div>
+
+          </div>
+
+        </div>
       </section>
 
       <section id="part-2">
@@ -72,6 +91,32 @@
 
       <section id="part-3">
         <h2 class="fw-light">Dokumentation</h2>
+        <div>
+          <p></p>
+
+          <p>Die Parameter des Modells sind die folgenden: </p>
+          <ul>
+            <li>Stacked LSTM: 2 hidden Layer (in sich rekursiv) mit je 100 LSTM Units</li>
+            <li>Softmax Output mit der Dimension des Dictionaries (X)</li>
+            <li>Loss Function: Cross-Entropy</li>
+            <li>Optimizer Adam mit Learning Rate = 0.01 und Batch Size = 32</li>
+            <li>Anzahl der Trainings-Epochen: X</li>
+          </ul>
+
+          <p>Folgende Libraries werden auf dieser Seite benutzt:</p>
+          <ul>
+            <li><a href="https://www.tensorflow.org/js">TensorFlow for JavaScript</a> für das
+              rekurrente LSTM-Network als Modell zu definieren, dieses zu trainieren und Predictions mit diesem
+              durchzuführen.
+            </li>
+            <li><a href="https://js.tensorflow.org/api_vis/1.5.1/">TensorFlow Visor</a> für die Darstellung des
+              Trainingsfortschritts: Hiermit kann ich einsehen, ab wie vielen Epochen der Mean Square Error abflacht.
+            </li>
+            <li><a href="https://www.chartjs.org/">chart.js</a> für das Plotten der Datensätze und Predictions.</li>
+            <li> <a href="https://getbootstrap.com/">Bootstrap 5.3.5.</a> als CSS-Framework.</li>
+          </ul>
+          <p>Die oben gennannten Libraries werden über Content Delivery Networks bezogen.</p>
+        </div>
 
       </section>
 
@@ -80,6 +125,8 @@
     <footer class="py-3 my-4 border-top">
       <span class="mb-3 p-3 text-body-secondary">Julia Heinzelmann</span>
     </footer>
+
+    <script src="./wordBtn.js"></script>
     <script src="./ea3.js"></script>
 
   </body>

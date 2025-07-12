@@ -1,12 +1,20 @@
 :root {
   --primary: #2b7abf;
+  --primary-transparent: #2b7abf3a;
+
   --secondary: #0f477b;
   --text: #e7edf3;
   --background: #ffffff16;
   --border-radius: 10px;
 }
 
+button {
+  background-color: var(--primary);
+}
 
+#input {
+  border-radius: var(--border-radius);
+}
 
 section {
   display: flex;
@@ -23,17 +31,73 @@ h2 {
   padding-bottom: 0;
 }
 
-.plot-columns {
+
+
+#text-input-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 3fr 1fr;
   gap: 1rem;
   width: 100%;
+  align-items: stretch;
+
 }
 
-canvas {
-  max-width: 100%;
-  min-width: 80%;
+
+
+#control-btn-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+
+#control-btn-container>button {
+  min-width: 6rem;
+}
+
+.my-btn {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.my-btn:hover {
+  color: white;
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+}
+
+#suggestion-section {
   background-color: var(--background);
-  padding: 1rem;
   border-radius: var(--border-radius);
+  padding: 1rem;
+
+}
+
+#suggestions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+#suggestions-n-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.best-suggestion {
+  background-color: var(--primary-transparent);
+  font-weight: bold;
+}
+
+.word-btn {
+  border-radius: var(--border-radius);
+  border-color: var(--primary);
+}
+
+.word-btn:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--text);
 }
