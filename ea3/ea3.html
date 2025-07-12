@@ -57,28 +57,24 @@
       <section id="part-1">
         <h2 class="fw-light">Wortvorhersage</h2>
 
-        <div id="text-input-container">
+        <div id="input-grid">
           <textarea class="form-control" id="input" autocomplete="off" placeholder="Geben sie Text ein..."></textarea>
 
-          <div id="control-btn-container">
+          <div id="input-btns">
             <button type="button" id="vorhersage" class="btn btn-primary my-btn">● Vorhersage generieren</button>
-
             <button type="button" id="reset" class="btn btn-outline-light">Reset</button>
 
           </div>
 
         </div>
 
-        <div id="suggestion-section">
+        <div id="suggestion-grid">
 
-          <div id="suggestions-n-btns">
-            <div id="suggestions">
-            </div>
-            <div>
-              <button type="button" id="weiter" class="btn btn-primary my-btn">→ Weiter mit Bestem</button>
-              <button type="button" id="auto" class="btn btn-primary my-btn">↬ Auto (10x Bestes)</button>
-            </div>
-
+          <div id="suggestions">
+          </div>
+          <div id="suggestion-controls">
+            <button type="button" id="weiter" class="btn btn-primary my-btn">→ Weiter mit Bestem</button>
+            <button type="button" id="auto" class="btn btn-primary my-btn">↬ Auto (10x Beste)</button>
           </div>
 
         </div>

@@ -91,7 +91,7 @@ function toggleAutoStyle() {
         autoBtn.innerHTML = "🚫 Stopp"
     } else {
         autoBtn.className = "btn btn-primary my-btn";
-        autoBtn.innerHTML = "↬ Auto"
+        autoBtn.innerHTML = "↬ Auto (10x Beste)"
     }
 
 }
@@ -123,7 +123,7 @@ function resetSuggestions() {
 function getPredictions(currentText) {
     const pred = [];
 
-    for (let index = 1; index < 5; index++) {
+    for (let index = 1; index < 8; index++) {
         let num = Math.round(Math.random(0, 1) * 100)
         pred.push(num)
     }

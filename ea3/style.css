@@ -12,16 +12,13 @@ button {
   background-color: var(--primary);
 }
 
-#input {
-  border-radius: var(--border-radius);
-}
-
 section {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 2rem;
   padding: 1rem;
-  margin: 1rem 3rem 1rem 3rem;
+  margin-bottom: 3rem;
   background-color: var(--background);
   border-radius: var(--border-radius);
 }
@@ -32,28 +29,23 @@ h2 {
 }
 
 
-
-#text-input-container {
+#input-grid {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1rem;
   width: 100%;
-  align-items: stretch;
+}
+
+#input-grid>#input {
+  grid-column: span 3;
+  border-radius: var(--border-radius);
 
 }
 
-
-
-#control-btn-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-
-#control-btn-container>button {
-  min-width: 6rem;
+#input-grid>#input-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .my-btn {
@@ -67,12 +59,15 @@ h2 {
   border-color: var(--secondary);
 }
 
-
 .my-btn:disabled {
   background-color: var(--primary-transparent);
 }
 
-#suggestion-section {
+#suggestion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: stretch;
+  gap: 1rem;
   background-color: var(--background);
   border-radius: var(--border-radius);
   padding: 1rem;
@@ -80,16 +75,22 @@ h2 {
 }
 
 #suggestions {
-  display: flex;
-  flex-direction: row;
+  /*as parent*/
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: stretch;
   gap: 0.5rem;
 }
 
-#suggestions-n-btns {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+#suggestion-controls {
+  /*as child*/
+
+  /*as parent */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
 }
+
 
 .best-suggestion {
   background-color: var(--primary-transparent);
@@ -107,4 +108,24 @@ h2 {
   background-color: var(--primary);
   border-color: var(--primary);
   color: var(--text);
+}
+
+
+
+@media (max-width: 500px) {
+  #input-grid>#input {
+    grid-column: span 4;
+  }
+
+  #input-grid>#input-btns {
+    grid-column: span 4;
+  }
+
+  #suggestions {
+    grid-column: span 2;
+  }
+
+  #suggestion-controls {
+    grid-column: span 2;
+  }
 }
