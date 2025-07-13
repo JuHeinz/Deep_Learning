@@ -1,9 +1,4 @@
-document.addEventListener('DOMContentLoaded', prepareData);
 
-function prepareData() {
-    let data = new TextData('short.txt')
-    console.dir(data);
-}
 
 const inputArea = document.querySelector('#input');
 
