@@ -41,7 +41,7 @@
       </p>
 
       <!-- NAVIGATION-->
-      <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top mt-3" id="page-nav">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary mt-3" id="page-nav">
         <div class="container-fluid">
           <div class="navbar-nav">
             <a class="nav-link" href="#part-1">Wortvorhersage</a>
@@ -57,7 +57,7 @@
         <h2 class="fw-light">Wortvorhersage</h2>
 
         <div id="input-grid">
-          <textarea class="form-control" id="input" autocomplete="off" placeholder="Geben sie Text ein..."></textarea>
+          <textarea class="form-control" id="input" autocomplete="off" placeholder="Enter text"></textarea>
 
           <div id="input-btns">
             <button type="button" id="vorhersage" class="btn btn-primary my-btn">● Vorhersage generieren</button>
@@ -81,23 +81,35 @@
       <!--DISCUSSION-->
       <section id="part-2">
         <h2 class="fw-light">Diskussion</h2>
+        <p>Als Anzahl der Trainings-Epochen wurden 20 gewählt, da der loss ab ca. der 20. Epoche abflacht. </p>
 
+        <div>
+
+        </div>
+
+        <p>Es ist zwar möglich den Original-Text zu rekonstruieren, allerdings ist das original nachfolgende Wort
+          meistens nicht der Voschlag mit der größten Wahrscheinlichkeit. Dies liegt wohl vor allem daran, dass die
+          von mir gewählte Sequence Length sehr gering (5) ist. Das heißt, die Vorhersage erfolg nur an Hand der letzen
+          5 Wörter. Datenschutz Probleme könne natürlich tortzdem entstehen,
+          so zum Beispiel bei Namen, da der Nachname einer Person in den meisten Fällen direkt auf deren Vornamen folgt.
+        </p>
       </section>
 
       <!--DOCUMENTATION-->
       <section id="part-3">
         <h2 class="fw-light">Dokumentation</h2>
         <div>
-          <p></p>
-
-          <p>Die Parameter des Modells sind die folgenden: </p>
+          <p>Modell-Parameter: </p>
           <ul>
             <li>Stacked LSTM: 2 hidden Layer (in sich rekursiv) mit je 100 LSTM Units</li>
-            <li>Softmax Output mit der Dimension des Dictionaries (X)</li>
+            <li>Softmax Output mit der Dimension des Dictionaries</li>
             <li>Loss Function: Cross-Entropy</li>
             <li>Optimizer Adam mit Learning Rate = 0.01 und Batch Size = 32</li>
-            <li>Anzahl der Trainings-Epochen: X</li>
           </ul>
+
+          <p>Das Modell wurde auf dem ersten Kapitel des Romans<a href="https://www.gutenberg.org/ebooks/158"> Emma </a>
+            von Jane Austen trainiert. (Vobabulary Size = 839)</p>
+          <p></p>
 
           <p>Folgende Libraries werden auf dieser Seite benutzt:</p>
           <ul>
@@ -106,12 +118,10 @@
               durchzuführen.
             </li>
             <li><a href="https://js.tensorflow.org/api_vis/1.5.1/">TensorFlow Visor</a> für die Darstellung des
-              Trainingsfortschritts: Hiermit kann ich einsehen, ab wie vielen Epochen der Mean Square Error abflacht.
+              Trainingsfortschritts.
             </li>
-            <li><a href="https://www.chartjs.org/">chart.js</a> für das Plotten der Datensätze und Predictions.</li>
             <li> <a href="https://getbootstrap.com/">Bootstrap 5.3.5.</a> als CSS-Framework.</li>
           </ul>
-          <p>Die oben gennannten Libraries werden über Content Delivery Networks bezogen.</p>
         </div>
 
       </section>

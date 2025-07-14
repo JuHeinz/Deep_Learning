@@ -10,21 +10,11 @@ class TextData {
     async init() {
         const response = await fetch(this.textUrl_);
         const text = await response.text();
-        this.words_ = this.makeWords(text);
+        this.words_ = makeWords(text);
         this.tokens_ = this.getTokens(this.words_);
-        this.trainingSequences_ = this.createTrainingSequences(this.words_, this.tokens_, this.sequenceLength_);
+        this.sequences_ = this.createTrainingSequences(this.words_, this.tokens_, this.sequenceLength_);
     }
 
-    /**
-     Clean text and split into words.
-     */
-    makeWords(text) {
-        return text
-            .toLowerCase()
-            .replace(/[^a-zA-Z0-9\s]/g, '')
-            .split(/\s+/)
-            .filter(Boolean);
-    }
 
     /**
      * Give each word an index
@@ -44,6 +34,8 @@ class TextData {
         });
 
         this.vocabSize_ = index;
+        console.log(this.vocabSize_)
+        console.log(tokens)
         this.reverseTokens_ = reverseTokens
         return tokens
     }
@@ -58,8 +50,20 @@ class TextData {
             const label = tokens[words[i + sequenceLength]]; //the word that follows right after the input
             sequences.push({ input, label });
         }
+        console.dir(sequences)
         return sequences;
     }
 
 }
 
+/**
+ Clean text and split into words.
+ */
+function makeWords(text) {
+    return text
+        .replace(/—/g, ' ')
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9\s']/g, '')
+        .split(/\s+/)
+        .filter(Boolean);
+}

@@ -24,12 +24,15 @@ class WordBtn {
     }
 
     addToText(isFromUser) {
+        let newText = currentText + " " + this.word
         //add word to text area
-        inputArea.value = currentText + " " + this.word;
+        inputArea.value = newText;
 
         if (isFromUser) {
             //delete all buttons if directly clicked by user
             resetSuggestions()
+            //show next suggestions
+            showSuggestions()
         }
     }
 

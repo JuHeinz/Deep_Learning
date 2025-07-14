@@ -7,14 +7,15 @@ let data
 let model;
 
 async function init() {
-    data = new TextData("training-data/emma.txt", sequenceLength)
+    data = new TextData("training-data/emma_c1.txt", sequenceLength)
     await data.init()
-    loadOrTrainModel()
+    await loadOrTrainModel()
 }
 
 async function loadOrTrainModel() {
     try {
-        model = await tf.loadLayersModel('indexeddb://my-lstm-model');
+        const model = await tf.loadLayersModel('/ea3/my-model.json');
+        // model = await tf.loadLayersModel('indexeddb://my-lstm-model');
         console.log('Model loaded from IndexedDB');
     } catch (e) {
         console.log('No saved model found, training a new one...');
@@ -28,16 +29,13 @@ async function trainModel() {
 
     model = createModel(data.vocabSize_, data.sequenceLength_);
 
-    const x_input = tf.tensor2d(data.trainingSequences_.map(s => s.input)); // An array of n = sequence_length words as indexes
+    const x_input = tf.tensor2d(data.sequences_.map(s => s.input)); // An array of n = sequence_length words as indexes
 
-    const y_label = tf.oneHot(data.trainingSequences_.map(s => s.label), data.vocabSize_); //for each sequence, there is an array with n = vocabsize columns. the array is 1 for the index of the word that follows this sequence
-
-    x_input.print()
-    y_label.print()
+    const y_label = tf.oneHot(data.sequences_.map(s => s.label), data.vocabSize_); //for each sequence, there is an array with n = vocabsize columns. the array is 1 for the index of the word that follows this sequence
 
     await model.fit(x_input,
         y_label, {
-        epochs: 50,
+        epochs: 20,
         batchSize: 32,
         callbacks: tfvis.show.fitCallbacks(
             { name: 'Training Performance' },
@@ -46,25 +44,33 @@ async function trainModel() {
         )
     });
 
-    await model.save('indexeddb://my-lstm-model');
+    // await model.save('indexeddb://my-lstm-model');
+    await model.save('downloads://my-model');
+
 
 }
 
 /**
  * Define and compile a sequential model with LSTM 
-
  */
 function createModel() {
     const model = tf.sequential();
 
-    const inputLayer = tf.layers.embedding({ inputDim: data.vocabSize_, outputDim: 50, inputLength: data.sequenceLength_ });
-    model.add(inputLayer);
+    model.add(tf.layers.embedding({ inputDim: data.vocabSize_, outputDim: 50, inputLength: data.sequenceLength_ }));
+
+    //first LSTM Layer
+    // return the entire sequence so the next layer has full data to work with
+    model.add(tf.layers.lstm({ units: 100, returnSequences: true }));
+
+    //second LSTM Layer
     model.add(tf.layers.lstm({ units: 100, returnSequences: false }));
+
+    //output layer has as many outputs/units as there are words in the vocabulary
     model.add(tf.layers.dense({ units: data.vocabSize_, activation: 'softmax' }));
 
     model.compile({
         loss: 'categoricalCrossentropy',
-        optimizer: 'adam',
+        optimizer: tf.train.adam(0.01),
         metrics: ['accuracy'],
     });
 
@@ -73,13 +79,14 @@ function createModel() {
     return model;
 }
 
-
+/**
+ * Predict the next word from the current Text
+ * @param {*} currentText what the user has currently entered in the text field
+ * @returns the top 10 prediction results and their probabilities
+ */
 function predictNextWord(currentText) {
     // turn currentText into array of strings and clean
-    const currentTextAsArray = currentText.toLowerCase()
-        .replace(/[^a-zA-Z0-9\s]/g, '')
-        .split(/\s+/)
-        .filter(Boolean);
+    const currentTextAsArray = makeWords(currentText)
 
     //The model needs an input of exactly n = sequenceLength.
     //so remove words from the currentText until it has the lenght of n
@@ -104,7 +111,7 @@ function predictNextWord(currentText) {
     const predictions10 = Array.from(predictionsAll)
         .map((prob, idx) => ({ idx, prob }))
         .sort((a, b) => b.prob - a.prob)
-        .slice(0, 10);
+        .slice(0, 20);
 
     const suggestions = predictions10.map(({ idx, prob }) => ({
         word: data.reverseTokens_[idx],
@@ -114,3 +121,40 @@ function predictNextWord(currentText) {
 
     return suggestions;
 }
+
+function evaluateAccuracy(sequences) {
+    let correct = 0;
+    let total = sequences.length;
+
+    sequences.forEach(seq => {
+        const wordsToPredictFor = tf.tensor2d([seq.input]);
+        const result = model.predict(wordsToPredictFor);
+        const predictionsAll = result.dataSync();
+        const bestGuess = predictionsAll.indexOf(Math.max(...predictionsAll));
+        if (bestGuess === seq.label) {
+
+            correct++;
+        } else {
+            let actualSentence = "";
+            seq.input.forEach(index => {
+                actualSentence = actualSentence + data.reverseTokens_[index] + " "
+            });
+            console.log(actualSentence + "... ✅" + data.reverseTokens_[seq.label] + " ❌" + data.reverseTokens_[bestGuess])
+        }
+    });
+
+    return (correct / total) * 100; // accuracy in percent
+}
+
+async function evaluate() {
+    let testData = new TextData("training-data/emma_c2.txt", sequenceLength)
+    await testData.init()
+    const training_accuracy = evaluateAccuracy(data.sequences_);
+    const test_accuracy = evaluateAccuracy(testData.sequences_);
+    console.log("TRAINING")
+    console.log(`Top-1 accuracy: ${training_accuracy.toFixed(2)}%`);
+
+    console.log("TEST")
+    console.log(`Top-1 accuracy: ${test_accuracy.toFixed(2)}%`);
+}
+
