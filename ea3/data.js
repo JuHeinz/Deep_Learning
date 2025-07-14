@@ -45,7 +45,6 @@ class TextData {
 
         this.vocabSize_ = index;
         this.reverseTokens_ = reverseTokens
-
         return tokens
     }
 

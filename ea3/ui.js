@@ -42,11 +42,11 @@ function showSuggestions() {
     currentText = inputArea.value;
 
     //geneate predictions
-    let predictions = getPredictions(currentText);
+
+    let predictions = predictNextWord(currentText);
 
     for (const p of predictions) {
-        let probability = Math.round(Math.random(0, 1) * 100)
-        const wordBtn = new WordBtn(p, probability);
+        const wordBtn = new WordBtn(p.word, p.probability);
         const wordBtnElement = wordBtn.btnElement;
         suggestionHolder.appendChild(wordBtnElement);
         wordBtns.push(wordBtn);
@@ -119,14 +119,6 @@ function resetSuggestions() {
 }
 
 
-// Make the model get the predicted text
-function getPredictions(currentText) {
-    const pred = [];
-
-    pred.push(predictNextWord(currentText))
-
-    return pred;
-}
 
 function disabledButtons(isDisabled) {
     predictBtn.disabled = isDisabled

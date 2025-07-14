@@ -97,9 +97,20 @@ function predictNextWord(currentText) {
     const wordsToPredictFor = tf.tensor2d([currentTextAsIndex]);
 
     //start prediction
-    const prediction = model.predict(wordsToPredictFor);
-    const predictedIndex = prediction.argMax(-1).dataSync()[0];
+    const result = model.predict(wordsToPredictFor);
+    const predictionsAll = result.dataSync()
 
-    //find the word for the given prediction
-    return data.reverseTokens_[predictedIndex];
+    //get top 10 predictions
+    const predictions10 = Array.from(predictionsAll)
+        .map((prob, idx) => ({ idx, prob }))
+        .sort((a, b) => b.prob - a.prob)
+        .slice(0, 10);
+
+    const suggestions = predictions10.map(({ idx, prob }) => ({
+        word: data.reverseTokens_[idx],
+        probability: (prob * 100).toFixed(2)
+    }));
+
+
+    return suggestions;
 }
