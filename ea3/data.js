@@ -1,13 +1,18 @@
 class TextData {
 
+
     constructor(textUrl, sequenceLength) {
         this.textUrl_ = textUrl;
-        let text = "Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy disposition, seemed to unite some of the best blessings of existence; and had lived nearly twenty-one years in the world with very little to distress or vex her. "
-        this.words_ = this.makeWords(text)
-        this.tokens_ = this.getTokens(this.words_)
-        this.trainingSequences_ = this.createTrainingSequences(this.words_, this.tokens_, sequenceLength)
+        this.sequenceLength_ = sequenceLength
+    }
 
-
+    /*can not use await in constructor, therefore call this method after initalizing TextData */
+    async init() {
+        const response = await fetch(this.textUrl_);
+        const text = await response.text();
+        this.words_ = this.makeWords(text);
+        this.tokens_ = this.getTokens(this.words_);
+        this.trainingSequences_ = this.createTrainingSequences(this.words_, this.tokens_, this.sequenceLength_);
     }
 
     /**
