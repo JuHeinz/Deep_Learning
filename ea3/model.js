@@ -14,9 +14,9 @@ async function init() {
 
 async function loadOrTrainModel() {
     try {
-        const model = await tf.loadLayersModel('/ea3/my-model.json');
+        const model = await tf.loadLayersModel('/Deep_Learning/ea3/my-model.json');
         // model = await tf.loadLayersModel('indexeddb://my-lstm-model');
-        console.log('Model loaded from IndexedDB');
+        console.log('Model loaded');
     } catch (e) {
         console.log('No saved model found, training a new one...');
         await trainModel();
