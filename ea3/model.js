@@ -7,21 +7,27 @@ let data
 let model;
 
 async function init() {
-    data = new TextData("training-data/emma_c1.txt", sequenceLength)
+    data = new TextData("training-data/emma_vol1.txt", sequenceLength)
     await data.init()
     await loadOrTrainModel()
 }
 
 async function loadOrTrainModel() {
     try {
-        const model = await tf.loadLayersModel('/Deep_Learning/ea3/my-model.json');
-        // model = await tf.loadLayersModel('indexeddb://my-lstm-model');
-        console.log('Model loaded');
+        //path while deployed
+        model = await tf.loadLayersModel('/Deep_Learning/ea3/my-model.json');
+        console.log('Model loaded deployed');
     } catch (e) {
-        console.log('No saved model found, training a new one...');
-        await trainModel();
-        await model.save('indexeddb://my-lstm-model');
-        console.log("Model has been trained")
+        try {
+            //path while local
+            model = await tf.loadLayersModel('/ea3/my-model.json');
+            console.log('Model loaded locally');
+        } catch (e) {
+            console.log('No saved model found, training a new one...');
+            await trainModel();
+            console.log("Model has been trained")
+        }
+
     }
 }
 
@@ -149,8 +155,9 @@ function evaluateAccuracy(sequences) {
 async function evaluate() {
     let testData = new TextData("training-data/emma_c2.txt", sequenceLength)
     await testData.init()
-    const training_accuracy = evaluateAccuracy(data.sequences_);
-    const test_accuracy = evaluateAccuracy(testData.sequences_);
+
+    const training_accuracy = evaluateAccuracy(data.sequences_.slice(0, 100));
+    const test_accuracy = evaluateAccuracy(testData.sequences_.slice(0, 100));
     console.log("TRAINING")
     console.log(`Top-1 accuracy: ${training_accuracy.toFixed(2)}%`);
 
