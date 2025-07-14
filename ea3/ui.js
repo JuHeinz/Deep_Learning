@@ -36,7 +36,6 @@ let wordBtns = [];
      Daraufhin beginnt automatisch eine neue Wortvorhersage.
  */
 function showSuggestions() {
-    foo()
     resetSuggestions()
 
     //get currentText 
@@ -124,12 +123,7 @@ function resetSuggestions() {
 function getPredictions(currentText) {
     const pred = [];
 
-    for (let index = 1; index < 8; index++) {
-        let num = Math.round(Math.random(0, 1) * 100)
-        pred.push(num)
-    }
-
-
+    pred.push(predictNextWord(currentText))
 
     return pred;
 }

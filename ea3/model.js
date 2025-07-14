@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', trainModel);
 
+let sequenceLength = 5
 
 let tokens;
-let sequenceLength = 5
 let reverseTokens;
+let vocabSize;
 let model;
 
 async function trainModel() {
@@ -53,11 +54,30 @@ function createModel(vocabSize, sequenceLength) {
 }
 
 
-function predictNextWord(inputWords) {
+function predictNextWord(currentText) {
+    // turn input string into array of strings
+    const currentTextAsArray = currentText.toLowerCase()
+        .replace(/[^a-zA-Z0-9\s]/g, '')
+        .split(/\s+/)
+        .filter(Boolean);
 
-    const inputSeq = inputWords.map(w => tokens[w] || 0);  // translate the input words into their indexes according to the tokens. If the word is not found in the tokens, it gets index 0
-    const wordsToPredictFor = tf.tensor2d([inputSeq.slice(-sequenceLength)]); //get the last n (=sequenceLength) words, put it in a tensor with 1 row and n columns.
+    //The model needs an input of exactly n = sequenceLength.
+    //so remove words from the inputs until it has the lenght of n
+    let sizedArray = currentTextAsArray.slice(-sequenceLength);
+
+    //or pad the inputs with 0s until it has the lenght of n
+    if (sizedArray.length < sequenceLength) {
+        sizedArray = Array(sequenceLength - sizedArray.length).fill(0).concat(sizedArray);
+    }
+
+    // translate the input words into their indexes according to the tokens. If the word is not found in the tokens, it gets index 0
+    const currentTextAsIndex = sizedArray.map(w => tokens[w] || 0);
+
+
+    const wordsToPredictFor = tf.tensor2d([currentTextAsIndex]); //a tensor with 1 row and n columns.
     const prediction = model.predict(wordsToPredictFor);
     const predictedIndex = prediction.argMax(-1).dataSync()[0];
+
+    //find the word for the given prediction
     return reverseTokens[predictedIndex];
 }
