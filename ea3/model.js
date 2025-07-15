@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', init);
 
 //how many of the previous words should be considered for the prediction
-let sequenceLength = 5
+let sequenceLength = 2
 
 let data
 let model;
 
 async function init() {
-    data = new TextData("training-data/emma_vol1.txt", sequenceLength)
+    data = new TextData("training-data/emma_vol1_c123.txt", sequenceLength)
     await data.init()
     await loadOrTrainModel()
 }
@@ -15,13 +15,13 @@ async function init() {
 async function loadOrTrainModel() {
     try {
         //path while deployed
-        model = await tf.loadLayersModel('/Deep_Learning/ea3/my-model.json');
-        console.log('Model loaded deployed');
+        model = await tf.loadLayersModel('/Deep_Learning/ea3/model-seq2/my-model.json');
+        console.log('Model loaded (deployed)');
     } catch (e) {
         try {
             //path while local
-            model = await tf.loadLayersModel('/ea3/my-model.json');
-            console.log('Model loaded locally');
+            model = await tf.loadLayersModel('/ea3/model-seq2/my-model.json');
+            console.log('Model loaded (local)');
         } catch (e) {
             console.log('No saved model found, training a new one...');
             await trainModel();
@@ -35,13 +35,13 @@ async function trainModel() {
 
     model = createModel(data.vocabSize_, data.sequenceLength_);
 
-    const x_input = tf.tensor2d(data.sequences_.map(s => s.input)); // An array of n = sequence_length words as indexes
+    const x_input = tf.tensor2d(data.sequences_.map(s => s.input)); // An array of sequence_length words, stored as indexes
 
-    const y_label = tf.oneHot(data.sequences_.map(s => s.label), data.vocabSize_); //for each sequence, there is an array with n = vocabsize columns. the array is 1 for the index of the word that follows this sequence
+    const y_label = tf.oneHot(data.sequences_.map(s => s.label), data.vocabSize_); //for each sequence, there is an array with vocabsize columns. the array is 1 for the index of the word that follows this sequence
 
     await model.fit(x_input,
         y_label, {
-        epochs: 20,
+        epochs: 30,
         batchSize: 32,
         callbacks: tfvis.show.fitCallbacks(
             { name: 'Training Performance' },
@@ -50,7 +50,6 @@ async function trainModel() {
         )
     });
 
-    // await model.save('indexeddb://my-lstm-model');
     await model.save('downloads://my-model');
 
 
@@ -114,12 +113,9 @@ function predictNextWord(currentText) {
     const predictionsAll = result.dataSync()
 
     //get top 10 predictions
-    const predictions10 = Array.from(predictionsAll)
-        .map((prob, idx) => ({ idx, prob }))
-        .sort((a, b) => b.prob - a.prob)
-        .slice(0, 20);
+    const topPredictions = sortPredictions(predictionsAll, 10)
 
-    const suggestions = predictions10.map(({ idx, prob }) => ({
+    const suggestions = topPredictions.map(({ idx, prob }) => ({
         word: data.reverseTokens_[idx],
         probability: (prob * 100).toFixed(2)
     }));
@@ -128,24 +124,35 @@ function predictNextWord(currentText) {
     return suggestions;
 }
 
-function evaluateAccuracy(sequences) {
+/**
+ * Predict the next word for sequences from a test text. Evaluate how often the correct word is in the top n results
+ */
+function evaluateAccuracy(textdata, n) {
+
+    let sequences = textdata.sequences_.slice(0, 100)
     let correct = 0;
     let total = sequences.length;
 
     sequences.forEach(seq => {
         const wordsToPredictFor = tf.tensor2d([seq.input]);
         const result = model.predict(wordsToPredictFor);
-        const predictionsAll = result.dataSync();
-        const bestGuess = predictionsAll.indexOf(Math.max(...predictionsAll));
-        if (bestGuess === seq.label) {
+        const predictionsAll = result.dataSync()
 
+        const topPredictions = sortPredictions(predictionsAll, n) // only return the top n predictions
+        const topIndexes = topPredictions.map(p => p.idx)
+
+        //check if the actual value is within the top predictions
+        if (topIndexes.includes(seq.label)) {
             correct++;
         } else {
+            /*
             let actualSentence = "";
             seq.input.forEach(index => {
-                actualSentence = actualSentence + data.reverseTokens_[index] + " "
+                actualSentence = actualSentence + textdata.reverseTokens_[index] + " "
             });
-            console.log(actualSentence + "... ✅" + data.reverseTokens_[seq.label] + " ❌" + data.reverseTokens_[bestGuess])
+            let bestPrediction = topIndexes[0]
+            console.log(actualSentence + "... ✅" + textdata.reverseTokens_[seq.label] + " ❌" + textdata.reverseTokens_[bestPrediction])
+            */
         }
     });
 
@@ -153,15 +160,35 @@ function evaluateAccuracy(sequences) {
 }
 
 async function evaluate() {
-    let testData = new TextData("training-data/emma_c2.txt", sequenceLength)
+    let testData = new TextData("training-data/emma_vol2_c1.txt", sequenceLength)
     await testData.init()
 
-    const training_accuracy = evaluateAccuracy(data.sequences_.slice(0, 100));
-    const test_accuracy = evaluateAccuracy(testData.sequences_.slice(0, 100));
-    console.log("TRAINING")
-    console.log(`Top-1 accuracy: ${training_accuracy.toFixed(2)}%`);
+    let considerTopNs = [1, 5, 10, 20, 100]
+    console.log(" ==== ACCURACY ON TRAINING DATA ====")
+    for (const n of considerTopNs) {
+        console.log(`Top-${n}:`)
+        const training_accuracy = evaluateAccuracy(data, n);
+        console.log(training_accuracy.toFixed(0));
+    }
 
-    console.log("TEST")
-    console.log(`Top-1 accuracy: ${test_accuracy.toFixed(2)}%`);
+    console.log(" ==== ACCURACY ON TEST DATA ====")
+    for (const n of considerTopNs) {
+        console.log(`Top-${n}:`)
+        const test_accuracy = evaluateAccuracy(testData, n);
+        console.log(test_accuracy.toFixed(0));
+    }
+
+
+
+
 }
 
+/**
+ * Sort predictions by probability and return the top n 
+ */
+function sortPredictions(unsortedPredictions, n) {
+    return Array.from(unsortedPredictions)
+        .map((prob, idx) => ({ idx, prob }))
+        .sort((a, b) => b.prob - a.prob)
+        .slice(0, n);
+}

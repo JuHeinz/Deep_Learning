@@ -115,3 +115,9 @@ canvas {
   gap: 1rem;
   width: 100vw;
 }
+
+table,
+th,
+td {
+  border: 1px solid white
+}

@@ -6,10 +6,17 @@
   --text: #e7edf3;
   --background: #ffffff16;
   --border-radius: 10px;
+  --accent: #e685b5;
+  --accent-transparent: #e685b53a
 }
 
 button {
   background-color: var(--primary);
+}
+
+
+.table-highlight {
+  background-color: var(--accent-transparent) !important;
 }
 
 section {

@@ -34,8 +34,7 @@ class TextData {
         });
 
         this.vocabSize_ = index;
-        console.log(this.vocabSize_)
-        console.log(tokens)
+        console.log("Vocab Size= ", this.vocabSize_)
         this.reverseTokens_ = reverseTokens
         return tokens
     }

@@ -55,9 +55,9 @@
       <!-- INTERACTION-->
       <section id="part-1">
         <h2 class="fw-light">Wortvorhersage</h2>
-
         <div id="input-grid">
-          <textarea class="form-control" id="input" autocomplete="off" placeholder="Enter text"></textarea>
+
+          <textarea class="form-control" id="input" autocomplete="off" placeholder="Enter text (English)"></textarea>
 
           <div id="input-btns">
             <button type="button" id="vorhersage" class="btn btn-primary my-btn">● Vorhersage generieren</button>
@@ -81,35 +81,220 @@
       <!--DISCUSSION-->
       <section id="part-2">
         <h2 class="fw-light">Diskussion</h2>
-        <p>Als Anzahl der Trainings-Epochen wurden 20 gewählt, da der loss ab ca. der 20. Epoche abflacht. </p>
 
         <div>
 
-        </div>
+          <p>Das Modell wurde auf dem ersten drei Kapiteln des Romans <a
+              href="https://www.gutenberg.org/ebooks/158">Emma</a> von Jane Austen trainiert. (Vobabulary Size = 1483)
+          </p>
+          <p>
 
-        <p>Es ist zwar möglich den Original-Text zu rekonstruieren, allerdings ist das original nachfolgende Wort
-          meistens nicht der Voschlag mit der größten Wahrscheinlichkeit. Dies liegt wohl vor allem daran, dass die
-          von mir gewählte Sequence Length sehr gering (5) ist. Das heißt, die Vorhersage erfolg nur an Hand der letzen
-          5 Wörter. Datenschutz Probleme könne natürlich tortzdem entstehen,
-          so zum Beispiel bei Namen, da der Nachname einer Person in den meisten Fällen direkt auf deren Vornamen folgt.
-        </p>
+          <p>Als Anzahl der Trainings-Epochen wurden 30 gewählt, da der loss ab ca. der 30. Epoche abflacht. </p>
+          <p>
+            Anschließend experimentierte ich in dem ich Modelle mit jeweils unterschiedlicher
+            <code>sequence_length</code>
+            trainierte. Dies ist die Anzahl der Wörter, die
+            das
+            Modell zur Verfügung hat um das nachfolgende Wort vorherzusagen.
+          </p>
+          <p>
+            Bei den Trainingsdaten kann ich keine Korreklation zwischen Performance und Länge der Sequenz erkennen.
+            Bei den Testdaten (ein späteres Kapitel aus dem gleichen Buch) konnte ich jedoch beobachten, dass eine
+            höhere <code>sequence_length</code> zu einer
+            schlechteren Performance der Vorhersage führte.
+          </p>
+          <img class="mb-3" src=" graph.svg" alt="" />
+
+          <table class="table table-hover table-small table-striped-columns">
+            <thead>
+              <tr>
+                <th colspan="1">
+                  Top-k Accuracy on...
+                </th>
+                <th colspan="5">
+                  Training Data
+                </th>
+
+                <th colspan="5">
+                  Test Data
+                </th>
+              </tr>
+              <tr>
+
+                <th>
+                  Sequence Length
+                </th>
+                <th>Top-1</th>
+                <th>Top-5</th>
+                <th>Top-10</th>
+                <th>Top-20</th>
+                <th>Top-100</th>
+                <th>Top-1</th>
+                <th>Top-5</th>
+                <th>Top-10</th>
+                <th>Top-20</th>
+                <th>Top-100</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+
+              <tr>
+
+                <th scope="row" class="table-highlight">2</th>
+                <td>61%</td>
+                <td>82%</td>
+                <td>85%</td>
+                <td>87%</td>
+                <td>88%</td>
+                <td class="table-highlight">17%</td>
+                <td class="table-highlight">24%</td>
+                <td class="table-highlight">25%</td>
+                <td class="table-highlight">31%</td>
+                <td class="table-highlight">45%</td>
+              </tr>
+              <tr>
+
+                <th scope="row">3</th>
+                <td>71%</td>
+                <td>88%</td>
+                <td>91%</td>
+                <td>91%</td>
+                <td>91%</td>
+                <td>14%</td>
+                <td>21%</td>
+                <td>24%</td>
+                <td>29%</td>
+                <td>35%</td>
+              </tr>
+              <tr>
+
+                <th scope="row">4</th>
+                <td>76%</td>
+                <td>87%</td>
+                <td>88%</td>
+                <td>88%</td>
+                <td>89%</td>
+                <td>11%</td>
+                <td>17%</td>
+                <td>21%</td>
+                <td>27%</td>
+                <td>38%</td>
+              </tr>
+              <tr>
+
+                <th scope="row">5</th>
+                <td>79%</td>
+                <td>87%</td>
+                <td>87%</td>
+                <td>88%</td>
+                <td>88%</td>
+                <td>7%</td>
+                <td>11%</td>
+                <td>18%</td>
+                <td>20%</td>
+                <td>39%</td>
+              </tr>
+              <tr>
+
+                <th scope="row">6</th>
+                <td>73%</td>
+                <td>83%</td>
+                <td>86%</td>
+                <td>86%</td>
+                <td>86%</td>
+                <td>8%</td>
+                <td>17%</td>
+                <td>20%</td>
+                <td>23%</td>
+                <td>38%</td>
+              </tr>
+              <tr>
+
+                <th scope="row">7</th>
+                <td>77%</td>
+                <td>88%</td>
+                <td>89%</td>
+                <td>90%</td>
+                <td>90%</td>
+                <td>6%</td>
+                <td>13%</td>
+                <td>14%</td>
+                <td>21%</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+
+                <th scope="row">8</th>
+                <td>68%</td>
+                <td>85%</td>
+                <td>88%</td>
+                <td>89%</td>
+                <td>90%</td>
+                <td>9%</td>
+                <td>18%</td>
+                <td>19%</td>
+                <td>24%</td>
+                <td>37%</td>
+              </tr>
+              <tr>
+
+                <th scope="row">9</th>
+                <td>79%</td>
+                <td>84%</td>
+                <td>84%</td>
+                <td>84%</td>
+                <td>85%</td>
+                <td>5%</td>
+                <td>13%</td>
+                <td>15%</td>
+                <td>21%</td>
+                <td>37%</td>
+              </tr>
+              <tr>
+
+                <th scope="row">10</th>
+                <td>57%</td>
+                <td>81%</td>
+                <td>85%</td>
+                <td>88%</td>
+                <td>89%</td>
+                <td>4%</td>
+                <td>13%</td>
+                <td>17%</td>
+                <td>24%</td>
+                <td>42%</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Das finale Modell hat deswegen eine <code>sequence_length</code> von <code>2</code>.
+            Mit mehr Zeit und Rechenpower hätte ich gerne mit einer größeren Anzahl an Trainingsdaten (z.B. das ganze
+            Buch) und Anzahl an
+            Epochen experimentiert.
+          </p>
+
+          <p>Es ist zwar möglich den Original-Text zu rekonstruieren, allerdings ist das original nachfolgende Wort
+            meistens nicht der Voschlag mit der größten Wahrscheinlichkeit. Dies liegt wohl vor allem daran, dass die
+            von mir gewählte Sequence Length sehr gering ist.
+            Datenschutz Probleme könne natürlich tortzdem entstehen,
+            so zum Beispiel da der Nachname einer Person in den meisten Fällen direkt auf deren Vornamen
+            folgt.
+          </p>
+        </div>
       </section>
 
       <!--DOCUMENTATION-->
       <section id="part-3">
         <h2 class="fw-light">Dokumentation</h2>
+
         <div>
           <p>Modell-Parameter: </p>
           <ul>
             <li>Stacked LSTM: 2 hidden Layer (in sich rekursiv) mit je 100 LSTM Units</li>
-            <li>Softmax Output mit der Dimension des Dictionaries</li>
+            <li>Softmax Output mit der Dimension des Dictionaries (1483)</li>
             <li>Loss Function: Cross-Entropy</li>
             <li>Optimizer Adam mit Learning Rate = 0.01 und Batch Size = 32</li>
           </ul>
-
-          <p>Das Modell wurde auf dem ersten Kapitel des Romans<a href="https://www.gutenberg.org/ebooks/158"> Emma </a>
-            von Jane Austen trainiert. (Vobabulary Size = 839)</p>
-          <p></p>
 
           <p>Folgende Libraries werden auf dieser Seite benutzt:</p>
           <ul>
